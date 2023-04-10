@@ -1,7 +1,5 @@
 import 'package:copytrade_ui/Navbar/earn.dart';
-import 'package:copytrade_ui/Navbar/menu.dart';
-import 'package:copytrade_ui/traders.dart';
-import 'package:copytrade_ui/wallet.dart';
+import 'package:copytrade_ui/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 import 'package:stylish_bottom_bar/model/bar_items.dart';
@@ -26,7 +24,7 @@ class _NavbarState extends State<Navbar> {
     MyHomePage(),
     Future1(),
     Earn(),
-    Menu(),
+    Profile(),
   ];
 
   void _onItemTap(int index) {
@@ -62,8 +60,8 @@ class _NavbarState extends State<Navbar> {
               unSelectedColor: Colors.grey,
             ),
             BottomBarItem(
-              icon: Icon(Icons.menu,),
-              title: Text("Menu",style: TextStyle(fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize,),),
+              icon: Icon(Icons.account_circle_sharp,),
+              title: Text("Account",style: TextStyle(fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize,),),
               selectedColor: Theme.of(context).splashColor,
               unSelectedColor: Colors.grey,
             ),

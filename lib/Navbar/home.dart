@@ -1,3 +1,4 @@
+import 'package:copytrade_ui/Navbar/menu.dart';
 import 'package:copytrade_ui/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
@@ -35,11 +36,11 @@ class _MyHomePageState extends State<MyHomePage> {
         leading: IconButton(
           onPressed: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const Profile()));
+                MaterialPageRoute(builder: (context) => const Menu()));
           },
-          icon: const Icon(
-            Icons.account_circle_sharp,
-            color: Colors.grey,
+          icon: Icon(
+            Icons.menu_outlined,
+            color: Theme.of(context).textTheme.bodyLarge?.color,
             size: 36,
           ),
         ),
@@ -108,10 +109,13 @@ class _MyHomePageState extends State<MyHomePage> {
                       width: MediaQuery.of(context).size.width*0.31,
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
-                            colors: [
+                            colors: darkMode? [
                               Color(0xff374454),
                               Color(0xff364655),
-                            ],
+                            ] : [
+                              Theme.of(context).indicatorColor,
+                              Theme.of(context).shadowColor,
+                            ]
                         ),
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                       ),
@@ -165,7 +169,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.01,
+              height: MediaQuery.of(context).size.height * 0.04,
             ),
             FlutterCarousel.builder(
               options: CarouselOptions(
@@ -218,7 +222,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       CircleAvatar(
                         radius: 15,
-                        backgroundColor: Theme.of(context).hintColor,
+                        backgroundColor: darkMode? Theme.of(context).hintColor : Theme.of(context).appBarTheme.backgroundColor,
                         child: SvgPicture.asset(
                           "assets/connection.svg"
                         ),
@@ -238,7 +242,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width*0.04,
+                  width: MediaQuery.of(context).size.width*0.001,
                 ),
                 Container(
                   height: MediaQuery.of(context).size.height*0.056,
@@ -255,7 +259,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       CircleAvatar(
                         radius: 15,
-                        backgroundColor: Theme.of(context).hintColor,
+                        backgroundColor: darkMode? Theme.of(context).hintColor : Theme.of(context).appBarTheme.backgroundColor,
                         child: SvgPicture.asset(
                             "assets/copy.svg"
                         ),
@@ -338,6 +342,302 @@ class _MyHomePageState extends State<MyHomePage> {
                                             style: TextStyle(
                                               fontSize: 13,
                                               fontWeight: FontWeight.w500
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "10x",
+                                            style: TextStyle(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width *
+                                                0.01,
+                                          ),
+                                          Container(
+                                            height: 15,
+                                            width: 15,
+                                            child: Center(
+                                              child: Text(
+                                                "L",
+                                                style: TextStyle(
+                                                  fontSize: Theme.of(context)
+                                                      .textTheme
+                                                      .bodySmall
+                                                      ?.fontSize,
+                                                  fontWeight: Theme.of(context)
+                                                      .textTheme
+                                                      .bodySmall
+                                                      ?.fontWeight,
+                                                ),
+                                              ),
+                                            ),
+                                            color: sorl
+                                                ? Color.fromRGBO(247, 69, 95, 1)
+                                                : Color.fromRGBO(
+                                                44, 187, 131, 1),
+                                          ),
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width *
+                                                0.04,
+                                          ),
+                                          Container(
+                                            height: MediaQuery.of(context).size.height*0.03,
+                                            width: MediaQuery.of(context).size.width*0.15,
+                                            child: Center(
+                                              child: Text(
+                                                "-18.0%",
+                                                style: TextStyle(
+                                                  fontSize: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyMedium
+                                                      ?.fontSize,
+                                                  fontWeight: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyMedium
+                                                      ?.fontWeight,
+                                                ),
+                                              ),
+                                            ),
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(5)),
+                                              color: up ? Color.fromRGBO(247, 69, 95, 1) : Color.fromRGBO(44, 187, 131, 1),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height*0.02,
+                                  )
+                                ],
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height*0.01,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width*0.9,
+                  decoration: BoxDecoration(
+                      color: darkMode ? Color.fromRGBO(57, 71, 84, 1) : Theme.of(context).shadowColor,
+                      borderRadius: BorderRadius.all(Radius.circular(3))
+                  ),
+                  child: ExpansionTile(
+                    initiallyExpanded: false,
+                    title: Text(
+                      "OPEN TRADE",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 13
+                      ),
+                    ),
+                    textColor: Theme.of(context).textTheme.bodyLarge?.color,
+                    iconColor: Theme.of(context).textTheme.bodyLarge?.color,
+                    collapsedIconColor: Theme.of(context).textTheme.bodyLarge?.color,
+                    collapsedTextColor: Theme.of(context).textTheme.bodyLarge?.color,
+                    children: [
+                      SingleChildScrollView(
+                        child: Container(
+                          color: Theme.of(context).indicatorColor,
+                          height: MediaQuery.of(context).size.height * 0.16,
+                          width: MediaQuery.of(context).size.width * 1,
+                          child: ListView.builder(
+                            physics: BouncingScrollPhysics(),
+                            scrollDirection: Axis.vertical,
+                            itemCount: 3,
+                            itemBuilder: (context, index) {
+                              return Column(
+                                children: [
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height*0.01,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Icon(
+                                            Icons.trending_up_sharp,
+                                            color: Colors.red,
+                                            size: 12,
+                                          ),
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width *
+                                                0.02,
+                                          ),
+                                          Text(
+                                            "SUSHI",
+                                            style: TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w500
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "10x",
+                                            style: TextStyle(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width *
+                                                0.01,
+                                          ),
+                                          Container(
+                                            height: 15,
+                                            width: 15,
+                                            child: Center(
+                                              child: Text(
+                                                "L",
+                                                style: TextStyle(
+                                                  fontSize: Theme.of(context)
+                                                      .textTheme
+                                                      .bodySmall
+                                                      ?.fontSize,
+                                                  fontWeight: Theme.of(context)
+                                                      .textTheme
+                                                      .bodySmall
+                                                      ?.fontWeight,
+                                                ),
+                                              ),
+                                            ),
+                                            color: sorl
+                                                ? Color.fromRGBO(247, 69, 95, 1)
+                                                : Color.fromRGBO(
+                                                44, 187, 131, 1),
+                                          ),
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width *
+                                                0.04,
+                                          ),
+                                          Container(
+                                            height: MediaQuery.of(context).size.height*0.03,
+                                            width: MediaQuery.of(context).size.width*0.15,
+                                            child: Center(
+                                              child: Text(
+                                                "-18.0%",
+                                                style: TextStyle(
+                                                  fontSize: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyMedium
+                                                      ?.fontSize,
+                                                  fontWeight: Theme.of(context)
+                                                      .textTheme
+                                                      .bodyMedium
+                                                      ?.fontWeight,
+                                                ),
+                                              ),
+                                            ),
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(5)),
+                                              color: up ? Color.fromRGBO(247, 69, 95, 1) : Color.fromRGBO(44, 187, 131, 1),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height*0.02,
+                                  )
+                                ],
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height*0.01,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width*0.9,
+                  decoration: BoxDecoration(
+                      color: darkMode ? Color.fromRGBO(57, 71, 84, 1) : Theme.of(context).shadowColor,
+                      borderRadius: BorderRadius.all(Radius.circular(3))
+                  ),
+                  child: ExpansionTile(
+                    initiallyExpanded: false,
+                    title: Text(
+                      "CLOSED TRADE",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 13
+                      ),
+                    ),
+                    textColor: Theme.of(context).textTheme.bodyLarge?.color,
+                    iconColor: Theme.of(context).textTheme.bodyLarge?.color,
+                    collapsedIconColor: Theme.of(context).textTheme.bodyLarge?.color,
+                    collapsedTextColor: Theme.of(context).textTheme.bodyLarge?.color,
+                    children: [
+                      SingleChildScrollView(
+                        child: Container(
+                          color: Theme.of(context).indicatorColor,
+                          height: MediaQuery.of(context).size.height * 0.16,
+                          width: MediaQuery.of(context).size.width * 1,
+                          child: ListView.builder(
+                            physics: BouncingScrollPhysics(),
+                            scrollDirection: Axis.vertical,
+                            itemCount: 3,
+                            itemBuilder: (context, index) {
+                              return Column(
+                                children: [
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height*0.01,
+                                  ),
+                                  Row(
+                                    mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Icon(
+                                            Icons.trending_up_sharp,
+                                            color: Colors.red,
+                                            size: 12,
+                                          ),
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width *
+                                                0.02,
+                                          ),
+                                          Text(
+                                            "SUSHI",
+                                            style: TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w500
                                             ),
                                           ),
                                         ],

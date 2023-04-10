@@ -1,0 +1,126 @@
+{
+  "project_info": {
+    "project_number": "223874705037",
+    "project_id": "copytrading-52c5d",
+    "storage_bucket": "copytrading-52c5d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:223874705037:android:442ccddfc673faf975a4c4",
+        "android_client_info": {
+          "package_name": "com.example.copytrade_admin_ui_real"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "223874705037-pf1jehtsb4b8drusm5qrcq5dmbrh6n1f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNuEI-nYqDBA06oJxL4FH6T-T6S-CmjmY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "223874705037-m10l7rs1mrjmchtie2kfd5j6agpr8nie.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "223874705037-b4kj4g8fc9gafo3k6nc21753k4et8ghk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.firstlogicmetalab.copytrade"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:223874705037:android:ab6d7920e70047c475a4c4",
+        "android_client_info": {
+          "package_name": "com.example.copytrade_ui"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "223874705037-pf1jehtsb4b8drusm5qrcq5dmbrh6n1f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNuEI-nYqDBA06oJxL4FH6T-T6S-CmjmY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "223874705037-m10l7rs1mrjmchtie2kfd5j6agpr8nie.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "223874705037-b4kj4g8fc9gafo3k6nc21753k4et8ghk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.firstlogicmetalab.copytrade"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:223874705037:android:cf5b51f76603252375a4c4",
+        "android_client_info": {
+          "package_name": "com.firstlogicmetalab.copytrade"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "223874705037-sf1ve2p3rjpd6ffg32teemdl9qvfp2m6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.firstlogicmetalab.copytrade",
+            "certificate_hash": "9bbb3186b2189ef16d8f272bdab59362c395cbb4"
+          }
+        },
+        {
+          "client_id": "223874705037-pf1jehtsb4b8drusm5qrcq5dmbrh6n1f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDNuEI-nYqDBA06oJxL4FH6T-T6S-CmjmY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "223874705037-m10l7rs1mrjmchtie2kfd5j6agpr8nie.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "223874705037-b4kj4g8fc9gafo3k6nc21753k4et8ghk.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.firstlogicmetalab.copytrade"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

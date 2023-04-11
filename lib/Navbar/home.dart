@@ -300,6 +300,12 @@ class _MyHomePageState extends State<MyHomePage> {
                           fontSize: 13
                       ),
                     ),
+                    shape: Border(
+                      top: BorderSide.none,
+                      bottom: BorderSide.none,
+                      left: BorderSide.none,
+                      right: BorderSide.none,
+                    ),
                     textColor: Theme.of(context).textTheme.bodyLarge?.color,
                     iconColor: Theme.of(context).textTheme.bodyLarge?.color,
                     collapsedIconColor: Theme.of(context).textTheme.bodyLarge?.color,
@@ -440,6 +446,12 @@ class _MyHomePageState extends State<MyHomePage> {
                       borderRadius: BorderRadius.all(Radius.circular(3))
                   ),
                   child: ExpansionTile(
+                    shape: Border(
+                      top: BorderSide.none,
+                      bottom: BorderSide.none,
+                      left: BorderSide.none,
+                      right: BorderSide.none,
+                    ),
                     initiallyExpanded: false,
                     title: Text(
                       "OPEN TRADE",
@@ -588,6 +600,12 @@ class _MyHomePageState extends State<MyHomePage> {
                       borderRadius: BorderRadius.all(Radius.circular(3))
                   ),
                   child: ExpansionTile(
+                    shape: Border(
+                      top: BorderSide.none,
+                      bottom: BorderSide.none,
+                      left: BorderSide.none,
+                      right: BorderSide.none,
+                    ),
                     initiallyExpanded: false,
                     title: Text(
                       "CLOSED TRADE",

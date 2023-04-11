@@ -1,3 +1,4 @@
+import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:copytrade_ui/Navbar/earn.dart';
 import 'package:copytrade_ui/profile.dart';
 import 'package:flutter/material.dart';
@@ -39,41 +40,53 @@ class _NavbarState extends State<Navbar> {
       body: Center(
         child: widgetOptions.elementAt(selectedItemIndex),
       ),
-      bottomNavigationBar: StylishBottomBar(
-        items: [
-            BottomBarItem(
-              icon: Icon(Icons.home_filled,),
-              title: Text("Home",style: TextStyle(fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize),),
-              selectedColor: Theme.of(context).splashColor,
-              unSelectedColor: Colors.grey,
-            ),
-            BottomBarItem(
-              icon: Icon(Icons.bar_chart,),
-              title: Text("Futures",style: TextStyle(fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize),),
-              selectedColor: Theme.of(context).splashColor,
-              unSelectedColor: Colors.grey,
-            ),
-            BottomBarItem(
-              icon: Icon(Icons.attach_money_sharp),
-              title: Text("Earn",style: TextStyle(fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize),),
-              selectedColor: Theme.of(context).splashColor,
-              unSelectedColor: Colors.grey,
-            ),
-            BottomBarItem(
-              icon: Icon(Icons.account_circle_sharp,),
-              title: Text("Account",style: TextStyle(fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize,),),
-              selectedColor: Theme.of(context).splashColor,
-              unSelectedColor: Colors.grey,
-            ),
-          ],
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        shape: CircleBorder(),
+        onPressed: () {
+
+        },
+        backgroundColor: Theme.of(context).splashColor,
+      ),
+      bottomNavigationBar: AnimatedBottomNavigationBar(
+        gapLocation: GapLocation.center,
+        notchSmoothness: NotchSmoothness.smoothEdge,
+        // items: [
+        //     BottomBarItem(
+        //       icon: Icon(Icons.home_filled,),
+        //       title: Text("Home",style: TextStyle(fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize),),
+        //       selectedColor: Theme.of(context).splashColor,
+        //       unSelectedColor: Colors.grey,
+        //     ),
+        //     BottomBarItem(
+        //       icon: Icon(Icons.bar_chart,),
+        //       title: Text("Futures",style: TextStyle(fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize),),
+        //       selectedColor: Theme.of(context).splashColor,
+        //       unSelectedColor: Colors.grey,
+        //     ),
+        //     BottomBarItem(
+        //       icon: Icon(Icons.attach_money_sharp),
+        //       title: Text("Earn",style: TextStyle(fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize),),
+        //       selectedColor: Theme.of(context).splashColor,
+        //       unSelectedColor: Colors.grey,
+        //     ),
+        //     BottomBarItem(
+        //       icon: Icon(Icons.account_circle_sharp,),
+        //       title: Text("Account",style: TextStyle(fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize,),),
+        //       selectedColor: Theme.of(context).splashColor,
+        //       unSelectedColor: Colors.grey,
+        //     ),
+        //   ],
         backgroundColor: darkMode? Theme.of(context).appBarTheme.backgroundColor : Theme.of(context).appBarTheme.backgroundColor,
         elevation: 0,
         onTap: _onItemTap,
-        currentIndex: selectedItemIndex,
-        option: AnimatedBarOptions(
-          barAnimation: BarAnimation.fade,
-          iconStyle: IconStyle.Default,
-        ),
+        activeIndex: selectedItemIndex,
+        icons: [
+          Icons.home_filled,
+          Icons.bar_chart,
+          Icons.attach_money_sharp,
+          Icons.account_circle_sharp,
+      ],
         ),
       );
   }

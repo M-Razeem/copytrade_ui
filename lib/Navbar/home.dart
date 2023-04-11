@@ -756,6 +756,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 color: Theme.of(context).iconTheme.color,
               ),
             ),
+            SizedBox(
+              height: 100,
+            ),
           ],
         ),
       ),

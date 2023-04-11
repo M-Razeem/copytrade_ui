@@ -1,6 +1,6 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:copytrade_ui/Navbar/earn.dart';
-import 'package:copytrade_ui/Navbar/trades.dart';
+import 'package:copytrade_ui/Navbar/trades/trades.dart';
 import 'package:copytrade_ui/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

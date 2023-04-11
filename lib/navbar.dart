@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
 import 'package:stylish_bottom_bar/model/bar_items.dart';
 import 'package:stylish_bottom_bar/stylish_bottom_bar.dart';
+import 'Navbar/dash.dart';
 import 'Navbar/futures.dart';
 import 'Navbar/home.dart';
 import 'main.dart';
@@ -44,7 +45,6 @@ class _NavbarState extends State<Navbar> {
       floatingActionButton: FloatingActionButton(
         shape: CircleBorder(),
         onPressed: () {
-
         },
         backgroundColor: Theme.of(context).splashColor,
       ),

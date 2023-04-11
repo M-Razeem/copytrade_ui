@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
-import '../main.dart';
+import 'main.dart';
 
 class Future1 extends StatefulWidget {
   const Future1({Key? key}) : super(key: key);

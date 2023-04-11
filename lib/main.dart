@@ -40,7 +40,7 @@ ThemeData lightTheme = ThemeData(
   shadowColor: Color.fromRGBO(209, 211, 213, 1),
   indicatorColor: Color.fromRGBO(234, 235, 237, 1),
   hoverColor: Colors.grey,
-  splashColor: Color.fromRGBO(243, 186, 47, 1),
+  splashColor: Color.fromRGBO(250, 212, 50, 1),
   highlightColor: Color.fromRGBO(243, 244, 246, 1),
   useMaterial3: true,
   hintColor: Colors.black45,
@@ -51,7 +51,7 @@ ThemeData lightTheme = ThemeData(
   brightness: Brightness.light,
   scaffoldBackgroundColor: const Color.fromRGBO(245, 245, 245, 1),
   textSelectionTheme: const TextSelectionThemeData(
-    cursorColor: Color.fromRGBO(243, 186, 47, 1),
+    cursorColor: Color.fromRGBO(250, 212, 50, 1),
   ),
   textTheme: const TextTheme(
       bodySmall: TextStyle(
@@ -82,7 +82,7 @@ ThemeData lightTheme = ThemeData(
     ),
   ),
   iconTheme: const IconThemeData(
-    color: Color.fromRGBO(243, 186, 47, 1),
+    color: Color.fromRGBO(250, 212, 50, 1),
   ),
 );
 
@@ -93,7 +93,7 @@ ThemeData darkTheme = ThemeData(
   indicatorColor: Color.fromRGBO(23, 30, 38, 1),
   shadowColor: Color.fromRGBO(52, 59, 70, 1),
   hoverColor: Colors.grey.shade600,
-  splashColor: Color.fromRGBO(243, 186, 47, 1),
+  splashColor: Color.fromRGBO(250, 212, 50, 1),
   highlightColor: Color.fromRGBO(65, 74, 89, 1),
   useMaterial3: true,
   hintColor: Colors.white,
@@ -104,7 +104,7 @@ ThemeData darkTheme = ThemeData(
   brightness: Brightness.dark,
   scaffoldBackgroundColor: const Color.fromRGBO(23, 30, 38, 1),
   textSelectionTheme: const TextSelectionThemeData(
-    cursorColor: Color.fromRGBO(243, 186, 47, 1),
+    cursorColor: Color.fromRGBO(250, 212, 50, 1),
   ),
   textTheme: const TextTheme(
       bodySmall: TextStyle(
@@ -136,7 +136,7 @@ ThemeData darkTheme = ThemeData(
     ),
   ),
   iconTheme: const IconThemeData(
-    color: Color.fromRGBO(243, 186, 47, 1),
+    color: Color.fromRGBO(250, 212, 50, 1),
   ),
 );
 

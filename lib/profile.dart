@@ -12,11 +12,11 @@ class Profile extends StatefulWidget {
 
 getUser() async {
   DocumentSnapshot<Map<String, dynamic>> doc1 = await FirebaseFirestore.instance
-      .collection("user")
+      .collection("users")
       .doc(currentUserId)
       .get();
   currentUserData = doc1.data()!;
-  currentUserName = doc1.get("username");
+  currentUserName = doc1.get("display_name");
   print(currentUserName);
 }
 
@@ -30,8 +30,6 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    print(currentUserName);
-    print(currentUserId);
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
@@ -43,13 +41,15 @@ class _ProfileState extends State<Profile> {
       body: Column(
         children: [
           StreamBuilder(
-            stream: FirebaseFirestore.instance.collection("user").snapshots(),
+            stream: FirebaseFirestore.instance.collection("users").snapshots(),
             builder: ((context, snapshot) {
               if (!snapshot.hasData) {
                 return Center(
                   child: CircularProgressIndicator(),
                 );
               }
+              print(currentUserName);
+              print(currentUserId);
               return Column(
                         children: [
                           Row(
@@ -63,12 +63,6 @@ class _ProfileState extends State<Profile> {
                                       color: Theme.of(context).textTheme.titleMedium?.color,
                                     fontSize: Theme.of(context).textTheme.titleMedium?.fontSize
                                   ),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(right: MediaQuery.of(context).size.width*0.055),
-                                child: CircleAvatar(
-                                  radius: 35,
                                 ),
                               ),
                             ],

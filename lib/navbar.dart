@@ -37,6 +37,25 @@ class _NavbarState extends State<Navbar> {
     });
   }
 
+  List tabs=[
+    {
+      "Icon":Icons.home_filled,
+      "Name":"Home"
+    },
+    {
+      "Icon":Icons.bar_chart,
+      "Name":"Trades"
+    },
+    {
+      "Icon":Icons.attach_money_sharp,
+      "Name":"Earn"
+    },
+    {
+      "Icon":Icons.account_circle_sharp,
+      "Name":"Account"
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +70,8 @@ class _NavbarState extends State<Navbar> {
         child: SvgPicture.asset("assets/logo1.svg"),
         backgroundColor: Colors.black,
       ),
-      bottomNavigationBar: AnimatedBottomNavigationBar(
+      bottomNavigationBar: AnimatedBottomNavigationBar.builder(
+        itemCount: 4,
         leftCornerRadius: 10,
         rightCornerRadius: 10,
         gapLocation: GapLocation.center,
@@ -86,12 +106,19 @@ class _NavbarState extends State<Navbar> {
         elevation: 0,
         onTap: _onItemTap,
         activeIndex: selectedItemIndex,
-        icons: [
-          Icons.home_filled,
-          Icons.bar_chart,
-          Icons.attach_money_sharp,
-          Icons.account_circle_sharp,
-      ],
+        tabBuilder: (int index, bool isActive) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                tabs[index]["Icon"]
+              ),
+              Text(
+                tabs[index]["Name"]
+              )
+            ],
+          );
+      },
         ),
       );
   }

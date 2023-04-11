@@ -1,9 +1,7 @@
 import 'package:copytrade_ui/Navbar/menu.dart';
-import 'package:copytrade_ui/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 import '../main.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -15,13 +13,76 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   bool up = false;
-  bool sorl = false;
   int selecteditemindex = 0;
-  var show;
+  List live=[
+    {
+      "Coin":"SUSHI",
+      "Leverage":"10x",
+      "Short/Long": "L",
+      "Profit/Loss":-18.0,
+    },
+    {
+      "Coin":"ZRX",
+      "Leverage":"10x",
+      "Short/Long": "L",
+      "Profit/Loss": 4.0,
+    },
+    {
+      "Coin":"BTC",
+      "Leverage":"10x",
+      "Short/Long": "S",
+      "Profit/Loss": 30.0,
+    },
+  ];
+  List open=[
+    {
+      "Coin":"SUSHI",
+      "Price":"0.0092",
+      "Buy/Sell": "LIMIT BUY",
+      "Profit/Loss": -18.0,
+    },
+    {
+      "Coin":"ZRX",
+      "Price":"0.0192",
+      "Buy/Sell": "STOP MARKET SELL",
+      "Profit/Loss": -4.0,
+    },
+    {
+      "Coin":"BTC",
+      "Price":"0.0052",
+      "Buy/Sell": "LIMIT SELL",
+      "Profit/Loss": 23.0,
+    },
+  ];
+  List close=[
+    {
+      "Coin":"SUSHI",
+      "P/L":"PROFIT",
+      "Short/Long": "LONG",
+      "Profit/Loss": 18.0,
+    },
+    {
+      "Coin":"ZRX",
+      "P/L":"LOSS",
+      "Short/Long": "SHORT",
+      "Profit/Loss": -4.0,
+    },
+    {
+      "Coin":"BTC",
+      "P/L":"PROFIT",
+      "Short/Long": "LONG",
+      "Profit/Loss": -23.0,
+    },
+    {
+      "Coin":"BNB",
+      "P/L":"LOSS",
+      "Short/Long": "LONG",
+      "Profit/Loss": 43.0,
+    },
+  ];
 
   @override
   void initState() {
-    show=true;
     super.initState();
   }
 
@@ -313,13 +374,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     children: [
                       SingleChildScrollView(
                         child: Container(
-                          color: Theme.of(context).indicatorColor,
+                          color: darkMode? Theme.of(context).indicatorColor : Theme.of(context).scaffoldBackgroundColor,
                           height: MediaQuery.of(context).size.height * 0.16,
                           width: MediaQuery.of(context).size.width * 1,
                           child: ListView.builder(
                             physics: BouncingScrollPhysics(),
                             scrollDirection: Axis.vertical,
-                            itemCount: 3,
+                            itemCount: live.length,
                             itemBuilder: (context, index) {
                               return Column(
                                 children: [
@@ -334,7 +395,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                         children: [
                                           Icon(
                                             Icons.trending_up_sharp,
-                                            color: Colors.red,
+                                            color: live[index]["Profit/Loss"] < 0  ? Color.fromRGBO(247, 69, 95, 1) : Color.fromRGBO(44, 187, 131, 1),
                                             size: 12,
                                           ),
                                           SizedBox(
@@ -343,19 +404,27 @@ class _MyHomePageState extends State<MyHomePage> {
                                                 .width *
                                                 0.02,
                                           ),
-                                          Text(
-                                            "SUSHI",
-                                            style: TextStyle(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w500
-                                            ),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                live[index]["Coin"],
+                                                style: TextStyle(
+                                                  fontSize: 13,
+                                                  fontWeight: FontWeight.w500
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.01),
+                                                child: live[index]["Profit/Loss"] >= 30  ? SvgPicture.asset("assets/fire.svg") : SizedBox(height: 0,width: 0,),
+                                              ),
+                                            ],
                                           ),
                                         ],
                                       ),
                                       Row(
                                         children: [
                                           Text(
-                                            "10x",
+                                            live[index]["Leverage"],
                                             style: TextStyle(
                                               fontSize: 13,
                                               fontWeight: FontWeight.w500,
@@ -372,7 +441,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                             width: 15,
                                             child: Center(
                                               child: Text(
-                                                "L",
+                                                live[index]["Short/Long"],
                                                 style: TextStyle(
                                                   fontSize: Theme.of(context)
                                                       .textTheme
@@ -385,10 +454,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                 ),
                                               ),
                                             ),
-                                            color: sorl
-                                                ? Color.fromRGBO(247, 69, 95, 1)
-                                                : Color.fromRGBO(
-                                                44, 187, 131, 1),
+                                            color: live[index]["Short/Long"]=="S" ? Color.fromRGBO(247, 69, 95, 1) : Color.fromRGBO(44, 187, 131, 1),
                                           ),
                                           SizedBox(
                                             width: MediaQuery.of(context)
@@ -399,9 +465,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                           Container(
                                             height: MediaQuery.of(context).size.height*0.03,
                                             width: MediaQuery.of(context).size.width*0.15,
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(5)),
+                                              color: live[index]["Profit/Loss"] < 0  ? Color.fromRGBO(247, 69, 95, 1) : Color.fromRGBO(44, 187, 131, 1),
+                                            ),
                                             child: Center(
                                               child: Text(
-                                                "-18.0%",
+                                                (live[index]["Profit/Loss"].toString()+"%"),
                                                 style: TextStyle(
                                                   fontSize: Theme.of(context)
                                                       .textTheme
@@ -413,11 +484,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                                       ?.fontWeight,
                                                 ),
                                               ),
-                                            ),
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(5)),
-                                              color: up ? Color.fromRGBO(247, 69, 95, 1) : Color.fromRGBO(44, 187, 131, 1),
                                             ),
                                           ),
                                         ],
@@ -467,13 +533,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     children: [
                       SingleChildScrollView(
                         child: Container(
-                          color: Theme.of(context).indicatorColor,
+                          color: darkMode? Theme.of(context).indicatorColor : Theme.of(context).scaffoldBackgroundColor,
                           height: MediaQuery.of(context).size.height * 0.16,
                           width: MediaQuery.of(context).size.width * 1,
                           child: ListView.builder(
                             physics: BouncingScrollPhysics(),
                             scrollDirection: Axis.vertical,
-                            itemCount: 3,
+                            itemCount: open.length,
                             itemBuilder: (context, index) {
                               return Column(
                                 children: [
@@ -484,97 +550,58 @@ class _MyHomePageState extends State<MyHomePage> {
                                     mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Row(
-                                        children: [
-                                          Icon(
-                                            Icons.trending_up_sharp,
-                                            color: Colors.red,
-                                            size: 12,
-                                          ),
-                                          SizedBox(
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width *
-                                                0.02,
-                                          ),
-                                          Text(
-                                            "SUSHI",
-                                            style: TextStyle(
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.w500
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            "10x",
-                                            style: TextStyle(
+                                      SizedBox(
+                                        width: MediaQuery.of(context).size.width*0.15,
+                                        child: Text(
+                                          open[index]["Coin"],
+                                          style: TextStyle(
                                               fontSize: 13,
-                                              fontWeight: FontWeight.w500,
+                                              fontWeight: FontWeight.w500
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: MediaQuery.of(context).size.width*0.35,
+                                        child: Text(
+                                          open[index]["Buy/Sell"],
+                                          textAlign: TextAlign.left,
+                                          style: TextStyle(
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w500,
+                                            color: open[index]["Buy/Sell"].toString().contains("SELL") ? Color.fromRGBO(247, 69, 95, 1) : Color.fromRGBO(44, 187, 131, 1),
+                                          ),
+                                        ),
+                                      ),
+                                      Text(
+                                        open[index]["Price"],
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                      Container(
+                                        height: MediaQuery.of(context).size.height*0.03,
+                                        width: MediaQuery.of(context).size.width*0.15,
+                                        child: Center(
+                                          child: Text(
+                                            open[index]["Profit/Loss"].toString()+"%",
+                                            style: TextStyle(
+                                              fontSize: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium
+                                                  ?.fontSize,
+                                              fontWeight: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium
+                                                  ?.fontWeight,
                                             ),
                                           ),
-                                          SizedBox(
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width *
-                                                0.01,
-                                          ),
-                                          Container(
-                                            height: 15,
-                                            width: 15,
-                                            child: Center(
-                                              child: Text(
-                                                "L",
-                                                style: TextStyle(
-                                                  fontSize: Theme.of(context)
-                                                      .textTheme
-                                                      .bodySmall
-                                                      ?.fontSize,
-                                                  fontWeight: Theme.of(context)
-                                                      .textTheme
-                                                      .bodySmall
-                                                      ?.fontWeight,
-                                                ),
-                                              ),
-                                            ),
-                                            color: sorl
-                                                ? Color.fromRGBO(247, 69, 95, 1)
-                                                : Color.fromRGBO(
-                                                44, 187, 131, 1),
-                                          ),
-                                          SizedBox(
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width *
-                                                0.04,
-                                          ),
-                                          Container(
-                                            height: MediaQuery.of(context).size.height*0.03,
-                                            width: MediaQuery.of(context).size.width*0.15,
-                                            child: Center(
-                                              child: Text(
-                                                "-18.0%",
-                                                style: TextStyle(
-                                                  fontSize: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyMedium
-                                                      ?.fontSize,
-                                                  fontWeight: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyMedium
-                                                      ?.fontWeight,
-                                                ),
-                                              ),
-                                            ),
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(5)),
-                                              color: up ? Color.fromRGBO(247, 69, 95, 1) : Color.fromRGBO(44, 187, 131, 1),
-                                            ),
-                                          ),
-                                        ],
+                                        ),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(5)),
+                                          color: open[index]["Profit/Loss"] < 0  ? Color.fromRGBO(247, 69, 95, 1) : Color.fromRGBO(44, 187, 131, 1),
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -621,13 +648,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     children: [
                       SingleChildScrollView(
                         child: Container(
-                          color: Theme.of(context).indicatorColor,
+                          color: darkMode? Theme.of(context).indicatorColor : Theme.of(context).scaffoldBackgroundColor,
                           height: MediaQuery.of(context).size.height * 0.16,
                           width: MediaQuery.of(context).size.width * 1,
                           child: ListView.builder(
                             physics: BouncingScrollPhysics(),
                             scrollDirection: Axis.vertical,
-                            itemCount: 3,
+                            itemCount: close.length,
                             itemBuilder: (context, index) {
                               return Column(
                                 children: [
@@ -638,97 +665,80 @@ class _MyHomePageState extends State<MyHomePage> {
                                     mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Row(
-                                        children: [
-                                          Icon(
-                                            Icons.trending_up_sharp,
-                                            color: Colors.red,
-                                            size: 12,
+                                      Container(
+                                        width: MediaQuery.of(context).size.width*0.15,
+                                        child: Text(
+                                          close[index]["Coin"],
+                                          style: TextStyle(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w500
                                           ),
-                                          SizedBox(
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width *
-                                                0.02,
-                                          ),
-                                          Text(
-                                            "SUSHI",
-                                            style: TextStyle(
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.w500
-                                            ),
-                                          ),
-                                        ],
+                                        ),
                                       ),
                                       Row(
                                         children: [
-                                          Text(
-                                            "10x",
-                                            style: TextStyle(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width *
-                                                0.01,
-                                          ),
                                           Container(
-                                            height: 15,
-                                            width: 15,
-                                            child: Center(
-                                              child: Text(
-                                                "L",
-                                                style: TextStyle(
-                                                  fontSize: Theme.of(context)
-                                                      .textTheme
-                                                      .bodySmall
-                                                      ?.fontSize,
-                                                  fontWeight: Theme.of(context)
-                                                      .textTheme
-                                                      .bodySmall
-                                                      ?.fontWeight,
-                                                ),
+                                            width: MediaQuery.of(context).size.width*0.11,
+                                            child: Text(
+                                              close[index]["Short/Long"],
+                                              style: TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w500,
+                                                color: close[index]["Short/Long"]=="SHORT" ? Color.fromRGBO(247, 69, 95, 1) : Color.fromRGBO(44, 187, 131, 1),
                                               ),
                                             ),
-                                            color: sorl
-                                                ? Color.fromRGBO(247, 69, 95, 1)
-                                                : Color.fromRGBO(
-                                                44, 187, 131, 1),
-                                          ),
-                                          SizedBox(
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width *
-                                                0.04,
                                           ),
                                           Container(
-                                            height: MediaQuery.of(context).size.height*0.03,
-                                            width: MediaQuery.of(context).size.width*0.15,
-                                            child: Center(
-                                              child: Text(
-                                                "-18.0%",
-                                                style: TextStyle(
-                                                  fontSize: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyMedium
-                                                      ?.fontSize,
-                                                  fontWeight: Theme.of(context)
-                                                      .textTheme
-                                                      .bodyMedium
-                                                      ?.fontWeight,
-                                                ),
-                                              ),
-                                            ),
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(5)),
-                                              color: up ? Color.fromRGBO(247, 69, 95, 1) : Color.fromRGBO(44, 187, 131, 1),
-                                            ),
-                                          ),
+                                            width: MediaQuery.of(context).size.width*0.03,
+                                              child: close[index]["Profit/Loss"] >= 30  ? SvgPicture.asset("assets/fire.svg") : SizedBox(height: 0,width: 0,)),
                                         ],
+                                      ),
+                                      SizedBox(
+                                        width: MediaQuery.of(context)
+                                            .size
+                                            .width *
+                                            0.01,
+                                      ),
+                                      Container(
+                                        width: MediaQuery.of(context).size.width*0.15,
+                                        child: Text(
+                                          close[index]["P/L"],
+                                          style: TextStyle(
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w500,
+                                            color: close[index]["P/L"]=="LOSS" ? Color.fromRGBO(247, 69, 95, 1) : Color.fromRGBO(44, 187, 131, 1),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: MediaQuery.of(context)
+                                            .size
+                                            .width *
+                                            0.04,
+                                      ),
+                                      Container(
+                                        height: MediaQuery.of(context).size.height*0.03,
+                                        width: MediaQuery.of(context).size.width*0.15,
+                                        child: Center(
+                                          child: Text(
+                                            close[index]["Profit/Loss"].toString()+"%",
+                                            style: TextStyle(
+                                              fontSize: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium
+                                                  ?.fontSize,
+                                              fontWeight: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyMedium
+                                                  ?.fontWeight,
+                                            ),
+                                          ),
+                                        ),
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(5)),
+                                          color: close[index]["Profit/Loss"] < 0 ? Color.fromRGBO(247, 69, 95, 1) : Color.fromRGBO(44, 187, 131, 1),
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -755,6 +765,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 darkMode ? iconDark : iconLight,
                 color: Theme.of(context).iconTheme.color,
               ),
+            ),
+            SizedBox(
+              height: 100,
             ),
           ],
         ),

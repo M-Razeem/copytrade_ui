@@ -164,7 +164,7 @@ class _OpenTradesState extends State<OpenTrades> {
              innerWidget: (percentage) {
                return Column(
                  children: [
-                   SizedBox(height: 15,),
+                   SizedBox(height: MediaQuery.of(context).size.height*0.018,),
                    SleekCircularSlider(
                      appearance: CircularSliderAppearance(
                          size: 80,
@@ -173,9 +173,9 @@ class _OpenTradesState extends State<OpenTrades> {
                      innerWidget: (percentage) {
                        return Column(
                          children: [
-                           SizedBox(height: 25,),
+                           SizedBox( height: MediaQuery.of(context).size.height*0.028,),
                            Text("\+2.4\%",style: TextStyle(color:Color(0xff25A27B),fontSize: 13 ),),
-                           SizedBox(height: 10,),
+                           SizedBox(height:  MediaQuery.of(context).size.height*0.01,),
                            Container(
                              width: 40,
                              height: 26,
@@ -202,7 +202,6 @@ class _OpenTradesState extends State<OpenTrades> {
            ),
            Column(
              children: [
-               SizedBox(height: 5,),
                Icon(Icons.share,color: Colors.white,),
              ],
            )

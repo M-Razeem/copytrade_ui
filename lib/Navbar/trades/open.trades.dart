@@ -178,12 +178,12 @@ class _OpenTradesState extends State<OpenTrades> {
                          innerWidget: (percentage) {
                            return Column(
                              children: [
-                               SizedBox( height: MediaQuery.of(context).size.height*0.021,),
+                               SizedBox( height: MediaQuery.of(context).size.height*0.02,),
                                Text("\+2.4\%",style: TextStyle(color:Color(0xff25A27B),fontSize: 13 ),),
-                               SizedBox(height:  MediaQuery.of(context).size.height*0.008,),
+                               SizedBox( height: MediaQuery.of(context).size.height*0.006,),
                                Container(
-                                 width: 40,
-                                 height: 26,
+                                 width: MediaQuery.of(context).size.width*0.11,
+                                 height: MediaQuery.of(context).size.height*0.033,
                                  decoration: BoxDecoration(
                                    borderRadius: BorderRadius.circular(5),
                                    color: Color(0xff415669)

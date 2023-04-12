@@ -2,6 +2,7 @@ import 'package:alxgration_speedometer/speedometer.dart';
 import 'package:copytrade_ui/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
 class OpenTrades extends StatefulWidget {
   const OpenTrades({Key? key}) : super(key: key);
@@ -154,6 +155,57 @@ class _OpenTradesState extends State<OpenTrades> {
                ),
              ],
            ),
+           SizedBox(width: MediaQuery.of(context).size.width*0.05,),
+           SleekCircularSlider(
+             appearance: CircularSliderAppearance(
+                 size: 115,
+                 customColors: CustomSliderColors(progressBarColor: Theme.of(context).splashColor,trackColor: Color(0xff415669) ),
+                 customWidths: CustomSliderWidths(progressBarWidth: 5,trackWidth: 5)),
+             innerWidget: (percentage) {
+               return Column(
+                 children: [
+                   SizedBox(height: 15,),
+                   SleekCircularSlider(
+                     appearance: CircularSliderAppearance(
+                         size: 80,
+                         customColors: CustomSliderColors(progressBarColor: Color(0xff25A27B),trackColor: Color(0xff415669) ),
+                         customWidths: CustomSliderWidths(progressBarWidth: 0,trackWidth: 10)),
+                     innerWidget: (percentage) {
+                       return Column(
+                         children: [
+                           SizedBox(height: 25,),
+                           Text("\+2.4\%",style: TextStyle(color:Color(0xff25A27B),fontSize: 13 ),),
+                           SizedBox(height: 10,),
+                           Container(
+                             width: 40,
+                             height: 26,
+                             decoration: BoxDecoration(
+                               borderRadius: BorderRadius.circular(5),
+                               color: Color(0xff415669)
+                             ),
+                             child: Center(child: Text("26M",style: TextStyle(color: Color(0xffD6DBDE)),)),
+                           )
+                         ],
+                       );
+                     },
+                     min: 0,
+                     max: 100,
+                     initialValue: 0,
+                   )
+
+                 ],
+               );
+             },
+             min: 0,
+             max: 100,
+             initialValue: 30,
+           ),
+           Column(
+             children: [
+               SizedBox(height: 5,),
+               Icon(Icons.share,color: Colors.white,),
+             ],
+           )
 
          ],
        ),

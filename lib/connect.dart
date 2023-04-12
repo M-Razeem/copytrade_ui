@@ -123,7 +123,6 @@ class _ConnectExchangeState extends State<ConnectExchange> {
                 fontWeight: Theme.of(context).textTheme.bodyLarge?.fontWeight,
               ),
             ),
-
           ],
         ),
       ),

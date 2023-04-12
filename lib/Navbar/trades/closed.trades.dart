@@ -31,7 +31,7 @@ class CircularProgressIndicatorAppState extends State<CircularProgressIndicatorA
       min: 0,
       max: 100,
       initialValue: 30,
-    )
+    ),
          ],
        ),
      ),

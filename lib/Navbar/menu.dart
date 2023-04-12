@@ -208,7 +208,7 @@ class _MenuState extends State<Menu> {
                 padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.02),
                 width: MediaQuery.of(context).size.width*0.95,
                 child: Text(
-                    "Privacy Policy &\nTerms",
+                    "Privacy Policy & Terms",
                   style: TextStyle(
                       fontSize: Theme.of(context).textTheme.titleSmall?.fontSize,
                       fontWeight: Theme.of(context).textTheme.bodyLarge?.fontWeight,

@@ -1,8 +1,17 @@
 import 'package:copytrade_ui/Navbar/menu.dart';
+import 'package:copytrade_ui/connect.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../login.dart';
 import '../main.dart';
+import '../privacy.dart';
+import '../profile.dart';
+import '../profile/settings.dart';
+import '../traders.dart';
+import '../wallet.dart';
+import 'earn.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key,});
@@ -90,21 +99,228 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      drawer: Drawer(
+            width: MediaQuery.of(context).size.width*0.6,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            child: ListView(
+              children: [
+                Text(
+                  "Menu",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: Theme.of(context).textTheme.titleLarge?.fontSize,
+                    color: Theme.of(context).textTheme.titleLarge?.color,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                TextButton(
+                  onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Profile()));
+                  },
+                  child: Container(
+                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.02),
+                    width: MediaQuery.of(context).size.width*0.95,
+                    child: Text(
+                      "Profile",
+                      style: TextStyle(
+                          fontSize: Theme.of(context).textTheme.titleSmall?.fontSize,
+                          fontWeight: Theme.of(context).textTheme.bodyLarge?.fontWeight,
+                          color: Theme.of(context).textTheme.bodyMedium?.color
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height*0.01,
+                ),
+                TextButton(
+                  onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Wallet()));
+                  },
+                  child: Container(
+                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.02),
+                    width: MediaQuery.of(context).size.width*0.95,
+                    child: Text(
+                      "Wallet",
+                      style: TextStyle(
+                          fontSize: Theme.of(context).textTheme.titleSmall?.fontSize,
+                          fontWeight: Theme.of(context).textTheme.bodyLarge?.fontWeight,
+                          color: Theme.of(context).textTheme.bodyMedium?.color
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height*0.01,
+                ),
+                TextButton(
+                  onPressed: (){
+
+                  },
+                  child: Container(
+                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.02),
+                    width: MediaQuery.of(context).size.width*0.95,
+                    child: Text(
+                      "Connect To Binance",
+                      style: TextStyle(
+                          fontSize: Theme.of(context).textTheme.titleSmall?.fontSize,
+                          fontWeight: Theme.of(context).textTheme.bodyLarge?.fontWeight,
+                          color: Theme.of(context).textTheme.bodyMedium?.color
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height*0.01,
+                ),
+                TextButton(
+                  onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Traders()));
+                  },
+                  child: Container(
+                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.02),
+                    width: MediaQuery.of(context).size.width*0.95,
+                    child: Text(
+                      "Traders",
+                      style: TextStyle(
+                          fontSize: Theme.of(context).textTheme.titleSmall?.fontSize,
+                          fontWeight: Theme.of(context).textTheme.bodyLarge?.fontWeight,
+                          color: Theme.of(context).textTheme.bodyMedium?.color
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height*0.01,
+                ),
+                TextButton(
+                  onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Settings()));
+                  },
+                  child: Container(
+                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.02),
+                    width: MediaQuery.of(context).size.width*0.95,
+                    child: Text(
+                      "Settings",
+                      style: TextStyle(
+                          fontSize: Theme.of(context).textTheme.titleSmall?.fontSize,
+                          fontWeight: Theme.of(context).textTheme.bodyLarge?.fontWeight,
+                          color: Theme.of(context).textTheme.bodyMedium?.color
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height*0.01,
+                ),
+                TextButton(
+                  onPressed: (){
+
+                  },
+                  child: Container(
+                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.02),
+                    width: MediaQuery.of(context).size.width*0.95,
+                    child: Text(
+                      "Support",
+                      style: TextStyle(
+                          fontSize: Theme.of(context).textTheme.titleSmall?.fontSize,
+                          fontWeight: Theme.of(context).textTheme.bodyLarge?.fontWeight,
+                          color: Theme.of(context).textTheme.bodyMedium?.color
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height*0.01,
+                ),
+                TextButton(
+                  onPressed: (){
+
+                  },
+                  child: Container(
+                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.02),
+                    width: MediaQuery.of(context).size.width*0.95,
+                    child: Text(
+                      "Guide",
+                      style: TextStyle(
+                          fontSize: Theme.of(context).textTheme.titleSmall?.fontSize,
+                          fontWeight: Theme.of(context).textTheme.bodyLarge?.fontWeight,
+                          color: Theme.of(context).textTheme.bodyMedium?.color
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height*0.01,
+                ),
+                TextButton(
+                  onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Earn()));
+                  },
+                  child: Container(
+                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.02),
+                    width: MediaQuery.of(context).size.width*0.95,
+                    child: Text(
+                      "Refer & Earn",
+                      style: TextStyle(
+                          fontSize: Theme.of(context).textTheme.titleSmall?.fontSize,
+                          fontWeight: Theme.of(context).textTheme.bodyLarge?.fontWeight,
+                          color: Theme.of(context).textTheme.bodyMedium?.color
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height*0.01,
+                ),
+                TextButton(
+                  onPressed: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Privacy()));
+                  },
+                  child: Container(
+                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.02),
+                    width: MediaQuery.of(context).size.width*0.95,
+                    child: Text(
+                      "Privacy Policy & Terms",
+                      style: TextStyle(
+                          fontSize: Theme.of(context).textTheme.titleSmall?.fontSize,
+                          fontWeight: Theme.of(context).textTheme.bodyLarge?.fontWeight,
+                          color: Theme.of(context).textTheme.bodyMedium?.color
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height*0.01,
+                ),
+                TextButton(
+                  onPressed: (){
+                    FirebaseAuth.instance.signOut();
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: (context) => const login()));
+                  },
+                  child: Container(
+                    padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.02),
+                    width: MediaQuery.of(context).size.width*0.95,
+                    child: Text(
+                      "Logout",
+                      style: TextStyle(
+                          fontSize: Theme.of(context).textTheme.titleSmall?.fontSize,
+                          fontWeight: Theme.of(context).textTheme.bodyLarge?.fontWeight,
+                          color: Theme.of(context).textTheme.bodyMedium?.color
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          // Navigator.push(context,
+          //     MaterialPageRoute(builder: (context) => const Menu()));
       appBar: AppBar(
         backgroundColor: darkMode? Theme.of(context).scaffoldBackgroundColor : Theme.of(context).scaffoldBackgroundColor,
         elevation: Theme.of(context).appBarTheme.elevation,
         leadingWidth: 40,
-        leading: IconButton(
-          onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const Menu()));
-          },
-          icon: Icon(
-            Icons.menu_outlined,
-            color: Theme.of(context).textTheme.bodyLarge?.color,
-            size: 36,
-          ),
-        ),
         title: Text(
           "SKOL",
           style: TextStyle(
@@ -268,38 +484,43 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Container(
-                  height: MediaQuery.of(context).size.height*0.056,
-                  width: MediaQuery.of(context).size.width*0.355,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(5)),
-                    color: darkMode ? Color.fromRGBO(57, 71, 84, 1) : Theme.of(context).shadowColor
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width*0.015,
-                      ),
-                      CircleAvatar(
-                        radius: 15,
-                        backgroundColor: darkMode? Theme.of(context).hintColor : Theme.of(context).appBarTheme.backgroundColor,
-                        child: SvgPicture.asset(
-                          "assets/connection.svg"
+                InkWell(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>ConnectExchange()));
+                  },
+                  child: Container(
+                    height: MediaQuery.of(context).size.height*0.056,
+                    width: MediaQuery.of(context).size.width*0.355,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      color: darkMode ? Color.fromRGBO(57, 71, 84, 1) : Theme.of(context).shadowColor
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width*0.015,
                         ),
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width*0.015,
-                      ),
-                      Text(
-                        "CONNECT WITH\nEXCHANGE",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 11,
-                          fontWeight: FontWeight.w700
+                        CircleAvatar(
+                          radius: 15,
+                          backgroundColor: darkMode? Theme.of(context).hintColor : Theme.of(context).appBarTheme.backgroundColor,
+                          child: SvgPicture.asset(
+                            "assets/connection.svg"
+                          ),
                         ),
-                      )
-                    ],
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width*0.015,
+                        ),
+                        Text(
+                          "CONNECT WITH\nEXCHANGE",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 11,
+                            fontWeight: FontWeight.w700
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
                 SizedBox(

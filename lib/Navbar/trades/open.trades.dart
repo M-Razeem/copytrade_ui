@@ -156,49 +156,56 @@ class _OpenTradesState extends State<OpenTrades> {
              ],
            ),
            SizedBox(width: MediaQuery.of(context).size.width*0.05,),
-           SleekCircularSlider(
-             appearance: CircularSliderAppearance(
-                 size: 115,
-                 customColors: CustomSliderColors(progressBarColor: Theme.of(context).splashColor,trackColor: Color(0xff415669) ),
-                 customWidths: CustomSliderWidths(progressBarWidth: 5,trackWidth: 5)),
-             innerWidget: (percentage) {
-               return Column(
-                 children: [
-                   SizedBox(height: MediaQuery.of(context).size.height*0.018,),
-                   SleekCircularSlider(
-                     appearance: CircularSliderAppearance(
-                         size: 80,
-                         customColors: CustomSliderColors(progressBarColor: Color(0xff25A27B),trackColor: Color(0xff415669) ),
-                         customWidths: CustomSliderWidths(progressBarWidth: 0,trackWidth: 10)),
-                     innerWidget: (percentage) {
-                       return Column(
-                         children: [
-                           SizedBox( height: MediaQuery.of(context).size.height*0.028,),
-                           Text("\+2.4\%",style: TextStyle(color:Color(0xff25A27B),fontSize: 13 ),),
-                           SizedBox(height:  MediaQuery.of(context).size.height*0.01,),
-                           Container(
-                             width: 40,
-                             height: 26,
-                             decoration: BoxDecoration(
-                               borderRadius: BorderRadius.circular(5),
-                               color: Color(0xff415669)
-                             ),
-                             child: Center(child: Text("26M",style: TextStyle(color: Color(0xffD6DBDE)),)),
-                           )
-                         ],
-                       );
-                     },
-                     min: 0,
-                     max: 100,
-                     initialValue: 0,
-                   )
+           Column(
+             children: [
+               SizedBox(
+                 height: 13,
+               ),
+               SleekCircularSlider(
+                 appearance: CircularSliderAppearance(
+                     size: MediaQuery.of(context).size.width*0.25,
+                     customColors: CustomSliderColors(progressBarColor: Theme.of(context).splashColor,trackColor: Color(0xff415669) ),
+                     customWidths: CustomSliderWidths(progressBarWidth: 5,trackWidth: 5)),
+                 innerWidget: (percentage) {
+                   return Column(
+                     children: [
+                       SizedBox(height: MediaQuery.of(context).size.height*0.018,),
+                       SleekCircularSlider(
+                         appearance: CircularSliderAppearance(
+                             size: MediaQuery.of(context).size.width*0.175,
+                             customColors: CustomSliderColors(progressBarColor: Color(0xff25A27B),trackColor: Color(0xff415669) ),
+                             customWidths: CustomSliderWidths(progressBarWidth: 0,trackWidth: 10)),
+                         innerWidget: (percentage) {
+                           return Column(
+                             children: [
+                               SizedBox( height: MediaQuery.of(context).size.height*0.021,),
+                               Text("\+2.4\%",style: TextStyle(color:Color(0xff25A27B),fontSize: 13 ),),
+                               SizedBox(height:  MediaQuery.of(context).size.height*0.008,),
+                               Container(
+                                 width: 40,
+                                 height: 26,
+                                 decoration: BoxDecoration(
+                                   borderRadius: BorderRadius.circular(5),
+                                   color: Color(0xff415669)
+                                 ),
+                                 child: Center(child: Text("26M",style: TextStyle(color: Color(0xffD6DBDE)),)),
+                               )
+                             ],
+                           );
+                         },
+                         min: 0,
+                         max: 100,
+                         initialValue: 0,
+                       )
 
-                 ],
-               );
-             },
-             min: 0,
-             max: 100,
-             initialValue: 30,
+                     ],
+                   );
+                 },
+                 min: 0,
+                 max: 100,
+                 initialValue: 30,
+               ),
+             ],
            ),
            Column(
              children: [

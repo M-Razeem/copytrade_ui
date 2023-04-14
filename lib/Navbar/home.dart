@@ -789,7 +789,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                         children: [
                                           Icon(
                                             Icons.trending_up_sharp,
-                                            color: positions[index]["unRealizedProfit"] < 0 ? Color.fromRGBO(247, 69, 95, 1) : Color.fromRGBO(44, 187, 131, 1),
+                                            color: (double.tryParse(positions[index]["unRealizedProfit"].toString())??0) < 0 ? Color.fromRGBO(247, 69, 95, 1) : Color.fromRGBO(44, 187, 131, 1),
                                             size: 12,
                                           ),
                                           SizedBox(
@@ -809,7 +809,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                               ),
                                               Padding(
                                                 padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.01),
-                                                child: positions[index]["unRealizedProfit"] >= 30  ? SvgPicture.asset("assets/fire.svg") : SizedBox(height: 0,width: 0,),
+                                                child: (double.tryParse(positions[index]["unRealizedProfit"].toString())??0) >= 30  ? SvgPicture.asset("assets/fire.svg") : SizedBox(height: 0,width: 0,),
                                               ),
                                             ],
                                           ),
@@ -835,7 +835,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                             width: 15,
                                             child: Center(
                                               child: Text(
-                                                positions[index]["positionAmt"] > 0 ? "L" : "S",
+                                                (double.tryParse(positions[index]["positionAmt"].toString())??0) > 0 ? "L" : "S",
                                                 style: TextStyle(
                                                   fontSize: Theme.of(context)
                                                       .textTheme
@@ -848,7 +848,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                 ),
                                               ),
                                             ),
-                                            color: positions[index]["positionAmt"] < 0 ? Color.fromRGBO(247, 69, 95, 1) : Color.fromRGBO(44, 187, 131, 1),
+                                            color: (double.tryParse(positions[index]["positionAmt"].toString())??0) < 0 ? Color.fromRGBO(247, 69, 95, 1) : Color.fromRGBO(44, 187, 131, 1),
                                           ),
                                           SizedBox(
                                             width: MediaQuery.of(context)
@@ -862,7 +862,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(5)),
-                                              color: positions[index]["unRealizedProfit"] < 0  ? Color.fromRGBO(247, 69, 95, 1) : Color.fromRGBO(44, 187, 131, 1),
+                                              color: (double.tryParse(positions[index]["unRealizedProfit"].toString())??0) < 0  ? Color.fromRGBO(247, 69, 95, 1) : Color.fromRGBO(44, 187, 131, 1),
                                             ),
                                             child: Center(
                                               child: Text(

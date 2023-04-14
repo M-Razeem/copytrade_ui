@@ -299,8 +299,7 @@ class _OpenTradesState extends State<OpenTrades> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          width: MediaQuery.of(context).size.width*0.32,
-                            color: Colors.blue,
+                          width: MediaQuery.of(context).size.width*0.3,
                             child: Text("BLUE BIRD/USDT",style: TextStyle(fontSize: 15,fontWeight: Theme.of(context).textTheme.bodyLarge?.fontWeight),)),
                         SizedBox(height: MediaQuery.of(context).size.height*0.025),
                         Row(
@@ -312,7 +311,7 @@ class _OpenTradesState extends State<OpenTrades> {
                             ),
                             SizedBox(width: MediaQuery.of(context).size.width*0.015,),
                             Container(
-                              color: Colors.blue,
+
                               width: MediaQuery.of(context).size.width*0.14,
                                 child: Text("9.11"))
                           ],
@@ -332,8 +331,8 @@ class _OpenTradesState extends State<OpenTrades> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          color: Colors.blue,
-                          width: MediaQuery.of(context).size.width*0.14,
+
+                          width: MediaQuery.of(context).size.width*0.13,
                             child: Text(
                               "\$ 9.84",
                               style: TextStyle(
@@ -344,8 +343,8 @@ class _OpenTradesState extends State<OpenTrades> {
                         ),
                         SizedBox(height: MediaQuery.of(context).size.height*0.025),
                         Container(
-                            color: Colors.blue,
-                            width: MediaQuery.of(context).size.width*0.14,
+
+                            width: MediaQuery.of(context).size.width*0.13,
                             child: Text(
                               "\$(4.98)",
                               style: TextStyle(
@@ -362,18 +361,18 @@ class _OpenTradesState extends State<OpenTrades> {
                 Column(
                   children: [
                     SizedBox(
-                      height: 13,
+                      height: MediaQuery.of(context).size.height*0.0225,
                     ),
                     SleekCircularSlider(
                       appearance: CircularSliderAppearance(
                         animationEnabled: false,
-                          size: MediaQuery.of(context).size.width*0.28,
+                          size: MediaQuery.of(context).size.width*0.26,
                           customColors: CustomSliderColors(progressBarColor: Theme.of(context).splashColor,trackColor: Color(0xff415669) ),
                           customWidths: CustomSliderWidths(progressBarWidth: 5,trackWidth: 5)),
                       innerWidget: (percentage) {
                         return Column(
                           children: [
-                            SizedBox(height: MediaQuery.of(context).size.height*0.018,),
+                            SizedBox(height: MediaQuery.of(context).size.height*0.013,),
                             SleekCircularSlider(
                               appearance: CircularSliderAppearance(
                                 animationEnabled: false,

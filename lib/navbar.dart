@@ -66,6 +66,7 @@ class _NavbarState extends State<Navbar> {
       floatingActionButton: FloatingActionButton(
         shape: CircleBorder(),
         onPressed: () {
+          Navigator.push(context, MaterialPageRoute(builder: (context)=>Future1(traderData: currentUserData,)));
         },
         child: SvgPicture.asset("assets/logo1.svg"),
         backgroundColor: Colors.black,

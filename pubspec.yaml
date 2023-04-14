@@ -45,6 +45,7 @@ dependencies:
   animated_bottom_navigation_bar: ^1.2.0
   alxgration_speedometer: ^0.0.1
   flutter_switch: ^0.3.2
+  dio: ^5.1.1
   flutter:
     sdk: flutter
 

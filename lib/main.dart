@@ -7,11 +7,14 @@ import 'package:flutter/material.dart';
 String? currentUserMail;
 String? currentUserName;
 String? currentUserId="";
-Map<String,dynamic>? currentUserData={};
+Map<String,dynamic> currentUserData={};
 StreamController<int> streamController=StreamController<int>();
 bool darkMode = false;
 IconData iconDark = Icons.dark_mode;
 IconData iconLight = Icons.light_mode;
+Map<String, dynamic> settingsMap = {};
+String firebaseVersion = "";
+bool wait =true;
 
 String a="hello world";
 
@@ -143,14 +146,25 @@ ThemeData darkTheme = ThemeData(
 
 class _MyAppState extends State<MyApp> {
 
-
   @override
   void initState() {
-    streamController.stream.listen((event) {
-     setState(() {
+    FirebaseFirestore.instance
+        .collection("settings")
+        .doc("settings")
+        .snapshots()
+        .listen((event) async {
+      if (event.exists) {
+        settingsMap = event.data() ?? {};
+        firebaseVersion=event.data()!['version'];
+        wait=false;
 
-     });
-   });
+      }
+    });
+    streamController.stream.listen((event) {
+      setState(() {
+
+      });
+    });
     super.initState();
   }
 

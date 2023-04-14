@@ -75,7 +75,7 @@ class _ConnectExchangeState extends State<ConnectExchange> {
               height: MediaQuery.of(context).size.height*0.006,
             ),
             Container(
-              height: MediaQuery.of(context).size.height*0.036,
+              height: MediaQuery.of(context).size.height*0.05,
               width: MediaQuery.of(context).size.width*0.918,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(6)),
@@ -115,12 +115,223 @@ class _ConnectExchangeState extends State<ConnectExchange> {
             SizedBox(
               height: MediaQuery.of(context).size.height*0.014,
             ),
-            Text(
-              "How do I create an API on Binance Futures",
-              style: TextStyle(
-                color: Theme.of(context).splashColor,
-                fontSize: Theme.of(context).textTheme.bodySmall?.fontSize,
-                fontWeight: Theme.of(context).textTheme.bodyLarge?.fontWeight,
+            Row(
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width*0.045,
+                ),
+                Text(
+                  "How do I create an API on Binance Futures",
+                  style: TextStyle(
+                    color: Theme.of(context).splashColor,
+                    fontSize: Theme.of(context).textTheme.bodySmall?.fontSize,
+                    fontWeight: Theme.of(context).textTheme.bodyLarge?.fontWeight,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height*0.0165,
+            ),
+            Row(
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width*0.045,
+                ),
+                Text(
+                  "Account Name",
+                  style: TextStyle(
+                    fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize,
+                    fontWeight: FontWeight.w500,
+                    color: Theme.of(context).textTheme.bodyMedium?.color
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height*0.004,
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height*0.05,
+              width: MediaQuery.of(context).size.width*0.918,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(6)),
+                color: darkMode? Color(0xff394754) : Theme.of(context).shadowColor,
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height*0.008,
+            ),
+            Row(
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width*0.045,
+                ),
+                Text(
+                  "API Key",
+                  style: TextStyle(
+                      fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize,
+                      fontWeight: FontWeight.w500,
+                      color: Theme.of(context).textTheme.bodyMedium?.color
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height*0.004,
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height*0.05,
+              width: MediaQuery.of(context).size.width*0.918,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(6)),
+                color: darkMode? Color(0xff394754) : Theme.of(context).shadowColor,
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height*0.008,
+            ),
+            Row(
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width*0.045,
+                ),
+                Text(
+                  "API Secret",
+                  style: TextStyle(
+                      fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize,
+                      fontWeight: FontWeight.w500,
+                      color: Theme.of(context).textTheme.bodyMedium?.color
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height*0.004,
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height*0.05,
+              width: MediaQuery.of(context).size.width*0.918,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(6)),
+                color: darkMode? Color(0xff394754) : Theme.of(context).shadowColor,
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height*0.008,
+            ),
+            Center(
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width*0.9,
+                child: Text(
+                  "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley",
+                  style: TextStyle(
+                    fontWeight: Theme.of(context).textTheme.bodyLarge?.fontWeight,
+                    fontSize: Theme.of(context).textTheme.bodySmall?.fontSize,
+                    color: Theme.of(context).textTheme.bodyLarge?.color
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height*0.03,
+            ),
+            Stack(
+              children: [
+                Container(
+                height: MediaQuery.of(context).size.height*0.05,
+                width: MediaQuery.of(context).size.width*0.918,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(6)),
+                  color: darkMode? Color(0xff394754) : Theme.of(context).shadowColor,
+                ),
+              ),
+                Positioned(
+                  left: MediaQuery.of(context).size.width*0.77,
+                  child: InkWell(
+                    onTap: () {
+
+                    },
+                    child: Container(
+                      height: MediaQuery.of(context).size.height*0.05,
+                      width: MediaQuery.of(context).size.width*0.148,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(6)),
+                        color: Theme.of(context).splashColor,
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset("assets/copyicon.svg"),
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width*0.01,
+                          ),
+                          Text(
+                            "Copy",
+                            style: TextStyle(
+                                fontWeight: Theme.of(context).textTheme.bodyLarge?.fontWeight,
+                                fontSize: Theme.of(context).textTheme.bodySmall?.fontSize,
+                                color: Theme.of(context).textTheme.bodyLarge?.color,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height*0.06,
+            ),
+            InkWell(
+              onTap: () {
+
+              },
+              child: Container(
+                height: MediaQuery.of(context).size.height*0.055,
+                width: MediaQuery.of(context).size.width*0.918,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(6)),
+                  color: Theme.of(context).splashColor,
+                ),
+                child: Center(
+                  child: Text(
+                    "CONNECT",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 15,
+                      color: Theme.of(context).textTheme.bodyLarge?.color,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height*0.022,
+            ),
+            InkWell(
+              onTap: () {
+
+              },
+              child: Container(
+                height: MediaQuery.of(context).size.height*0.055,
+                width: MediaQuery.of(context).size.width*0.918,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(6)),
+                  color: darkMode? Color(0xff394754) : Theme.of(context).shadowColor,
+                ),
+                child: Center(
+                  child: Text(
+                    "USE BINANCE QUICK CONNECT",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 15,
+                      color: Theme.of(context).splashColor,
+                    ),
+                  ),
+                ),
               ),
             ),
           ],

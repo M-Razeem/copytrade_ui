@@ -257,7 +257,7 @@ class _OpenTradesState extends State<OpenTrades> {
                       ),
                     ),
                     Padding(
-                      padding:  EdgeInsets.only(right: MediaQuery.of(context).size.width*0.03),
+                      padding:  EdgeInsets.only(right: MediaQuery.of(context).size.width*0.08),
                       child: Text("PROGRESS",style: TextStyle(color:darkMode? Color(0xffE2E2E2):Color(0xff1d1d1d),fontSize: 13,fontWeight: Theme.of(context).textTheme.bodyLarge?.fontWeight)),
                     )
                   ],

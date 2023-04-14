@@ -36,13 +36,13 @@ class _TradesState extends State<Trades> {
                     ),
                   ),
                   Container(
-                      height: MediaQuery.of(context).size.height-240, //height of TabBarView
+                      height: MediaQuery.of(context).size.height*0.824, //height of TabBarView
                       decoration: BoxDecoration(
                           border: Border(top: BorderSide(color: Colors.grey, width: 0.5))
                       ),
                       child: TabBarView(children: <Widget>[
                         OpenTrades(),
-                        CircularProgressIndicatorApp()
+                        MyExpandableContainer()
 
 
                       ])

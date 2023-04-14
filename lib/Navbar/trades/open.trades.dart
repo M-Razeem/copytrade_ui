@@ -357,7 +357,7 @@ class _OpenTradesState extends State<OpenTrades> {
                     ),
                   ],
                 ),
-                SizedBox(width: MediaQuery.of(context).size.width*0.05,),
+                SizedBox(width: MediaQuery.of(context).size.width*0.04,),
                 Column(
                   children: [
                     SizedBox(

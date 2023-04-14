@@ -144,6 +144,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
         positions = response.data['positions'];
         _orders = response.data['openOrders'];
+        print(_orders);
 
         setState(() {
 
@@ -246,6 +247,7 @@ class _MyHomePageState extends State<MyHomePage> {
           print(coinReport);
           print(dayReport);
           print(positions);
+          print(tradeHistory);
           pnl=double.tryParse(response.data['pnl'].toString())??0;
           setState(() {
 
@@ -488,8 +490,6 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
           ),
-          // Navigator.push(context,
-          //     MaterialPageRoute(builder: (context) => const Menu()));
       appBar: AppBar(
         backgroundColor: darkMode? Theme.of(context).scaffoldBackgroundColor : Theme.of(context).scaffoldBackgroundColor,
         elevation: Theme.of(context).appBarTheme.elevation,
@@ -767,7 +767,21 @@ class _MyHomePageState extends State<MyHomePage> {
                     collapsedTextColor: Theme.of(context).textTheme.bodyLarge?.color,
                     children: [
                       SingleChildScrollView(
-                        child: Container(
+                        child: positions.isEmpty ? Container(
+                          color: darkMode? Theme.of(context).indicatorColor : Theme.of(context).scaffoldBackgroundColor,
+                          height: MediaQuery.of(context).size.height * 0.16,
+                          width: MediaQuery.of(context).size.width * 1,
+                          child: Center(
+                            child: Text(
+                              "NO LIVE TRADES",
+                              style: TextStyle(
+                                fontSize: Theme.of(context).textTheme.bodyLarge?.fontSize,
+                                fontWeight: FontWeight.w500,
+                                color: Theme.of(context).textTheme.bodyLarge?.color,
+                              ),
+                            ),
+                          ),
+                        ) : Container(
                           color: darkMode? Theme.of(context).indicatorColor : Theme.of(context).scaffoldBackgroundColor,
                           height: MediaQuery.of(context).size.height * 0.16,
                           width: MediaQuery.of(context).size.width * 1,
@@ -866,7 +880,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                             ),
                                             child: Center(
                                               child: Text(
-                                                (positions[index]["unRealizedProfit"].toString()+"%"),
+                                                (positions[index]["unRealizedProfit"].toString().substring(0,7)+"%"),
                                                 style: TextStyle(
                                                   fontSize: Theme.of(context)
                                                       .textTheme
@@ -1041,14 +1055,28 @@ class _MyHomePageState extends State<MyHomePage> {
                     collapsedTextColor: Theme.of(context).textTheme.bodyLarge?.color,
                     children: [
                       SingleChildScrollView(
-                        child: Container(
+                        child: tradeHistory.isEmpty? Container(
+                          color: darkMode? Theme.of(context).indicatorColor : Theme.of(context).scaffoldBackgroundColor,
+                          height: MediaQuery.of(context).size.height * 0.16,
+                          width: MediaQuery.of(context).size.width * 1,
+                          child: Center(
+                            child: Text(
+                              "NO LIVE TRADES",
+                              style: TextStyle(
+                                fontSize: Theme.of(context).textTheme.bodyLarge?.fontSize,
+                                fontWeight: FontWeight.w500,
+                                color: Theme.of(context).textTheme.bodyLarge?.color,
+                              ),
+                            ),
+                          ),
+                        ) : Container(
                           color: darkMode? Theme.of(context).indicatorColor : Theme.of(context).scaffoldBackgroundColor,
                           height: MediaQuery.of(context).size.height * 0.16,
                           width: MediaQuery.of(context).size.width * 1,
                           child: ListView.builder(
                             physics: BouncingScrollPhysics(),
                             scrollDirection: Axis.vertical,
-                            itemCount: close.length,
+                            itemCount: tradeHistory.length,
                             itemBuilder: (context, index) {
                               return Column(
                                 children: [
@@ -1060,9 +1088,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                     MainAxisAlignment.spaceBetween,
                                     children: [
                                       Container(
-                                        width: MediaQuery.of(context).size.width*0.15,
+                                        width: MediaQuery.of(context).size.width*0.18,
                                         child: Text(
-                                          close[index]["Coin"],
+                                          tradeHistory[index]["symbol"],
                                           style: TextStyle(
                                               fontSize: 13,
                                               fontWeight: FontWeight.w500
@@ -1074,17 +1102,17 @@ class _MyHomePageState extends State<MyHomePage> {
                                           Container(
                                             width: MediaQuery.of(context).size.width*0.11,
                                             child: Text(
-                                              close[index]["Short/Long"],
+                                              tradeHistory[index]["side"]=="SELL" ? "SHORT" : "LONG",
                                               style: TextStyle(
                                                 fontSize: 13,
                                                 fontWeight: FontWeight.w500,
-                                                color: close[index]["Short/Long"]=="SHORT" ? Color.fromRGBO(247, 69, 95, 1) : Color.fromRGBO(44, 187, 131, 1),
+                                                color: tradeHistory[index]["side"]=="SELL" ? Color.fromRGBO(247, 69, 95, 1) : Color.fromRGBO(44, 187, 131, 1),
                                               ),
                                             ),
                                           ),
                                           Container(
                                             width: MediaQuery.of(context).size.width*0.03,
-                                              child: close[index]["Profit/Loss"] >= 30  ? SvgPicture.asset("assets/fire.svg") : SizedBox(height: 0,width: 0,)),
+                                              child: (double.tryParse(tradeHistory[index]["realizedPnl"].toString())??0) >= 30  ? SvgPicture.asset("assets/fire.svg") : SizedBox(height: 0,width: 0,)),
                                         ],
                                       ),
                                       SizedBox(
@@ -1096,11 +1124,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                       Container(
                                         width: MediaQuery.of(context).size.width*0.15,
                                         child: Text(
-                                          close[index]["P/L"],
+                                          (double.tryParse(tradeHistory[index]["realizedPnl"].toString())??0) < 0 ? "LOSS" : "PROFIT",
                                           style: TextStyle(
                                             fontSize: 13,
                                             fontWeight: FontWeight.w500,
-                                            color: close[index]["P/L"]=="LOSS" ? Color.fromRGBO(247, 69, 95, 1) : Color.fromRGBO(44, 187, 131, 1),
+                                            color: (double.tryParse(tradeHistory[index]["realizedPnl"].toString())??0) < 0 ? Color.fromRGBO(247, 69, 95, 1) : Color.fromRGBO(44, 187, 131, 1),
                                           ),
                                         ),
                                       ),
@@ -1115,7 +1143,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                         width: MediaQuery.of(context).size.width*0.15,
                                         child: Center(
                                           child: Text(
-                                            close[index]["Profit/Loss"].toString()+"%",
+                                            (double.tryParse(tradeHistory[index]["realizedPnl"].toString())??0).toString()+"%",
                                             style: TextStyle(
                                               fontSize: Theme.of(context)
                                                   .textTheme
@@ -1123,7 +1151,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                   ?.fontSize,
                                               fontWeight: Theme.of(context)
                                                   .textTheme
-                                                  .bodyMedium
+                                                  .bodyLarge
                                                   ?.fontWeight,
                                             ),
                                           ),
@@ -1131,7 +1159,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(5)),
-                                          color: close[index]["Profit/Loss"] < 0 ? Color.fromRGBO(247, 69, 95, 1) : Color.fromRGBO(44, 187, 131, 1),
+                                          color: (double.tryParse(tradeHistory[index]["realizedPnl"].toString())??0) < 0 ? Color.fromRGBO(247, 69, 95, 1) : Color.fromRGBO(44, 187, 131, 1),
                                         ),
                                       ),
                                     ],

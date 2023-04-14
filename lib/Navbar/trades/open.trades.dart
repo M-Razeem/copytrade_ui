@@ -1,17 +1,183 @@
 import 'package:alxgration_speedometer/speedometer.dart';
 import 'package:copytrade_ui/main.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sleek_circular_slider/sleek_circular_slider.dart';
 
+
+List _orders = [];
+List fullOrders = [];
+List<dynamic> positions = [];
+List<dynamic> tradeHistory=[];
+double pnl = 0;
+DateTime? selectedDate;
+
 class OpenTrades extends StatefulWidget {
-  const OpenTrades({Key? key}) : super(key: key);
+
+  final Map<String, dynamic> traderData;
+  const OpenTrades({Key? key, required this.traderData}) : super(key: key);
 
   @override
   State<OpenTrades> createState() => _OpenTradesState();
 }
 
 class _OpenTradesState extends State<OpenTrades> {
+
+  @override
+  void initState() {
+    _orders = [];
+    fullOrders = [];
+    positions = [];
+    tradeHistory = [];
+
+    selectedDate=DateTime.now();
+    getUserData();
+    getUserPnl();
+    super.initState();
+  }
+
+  Map<String,dynamic> coinReport={};
+  Map<String,dynamic> dayReport={};
+  int wins=0;
+  int loses=0;
+  Future<bool> getUserData() async {
+    try {
+      var url = settingsMap['path'];
+
+      Dio dio1 = Dio(BaseOptions(
+        baseUrl: url + "/openOrdersAndPositions",
+        validateStatus: (status) => true,
+
+      ));
+      Response response = await dio1.get('', queryParameters: {
+
+        'key': widget.traderData['api_key'],
+        'secret': widget.traderData['api_secret'],
+      });
+
+      if (response.data.toString() != "error" &&
+          response.data.toString() != "An error occurred" &&
+          !response.data.toString().toUpperCase().contains("CORS")) {
+
+
+        positions = response.data['positions'];
+        _orders = response.data['openOrders'];
+
+        setState(() {
+
+        });
+        return true;
+      } else {
+        return await getUserData();
+      }
+    }
+    catch (err) {
+      return await getUserData();
+    }
+  }
+
+  Future<bool> getUserPnl() async {
+    try {
+      var url = settingsMap['path'];
+
+      Dio dio1 = Dio(BaseOptions(
+        baseUrl: url + "/userPnl",
+        validateStatus: (status) => true,
+
+      ));
+      DateTime now =DateTime.now();
+      Response response = await dio1.get('', queryParameters: {
+
+        'key': widget.traderData['api_key'],
+        'secret': widget.traderData['api_secret'],
+        'fromYear': selectedDate?.year??now.year,
+        'fromMonth': selectedDate?.month??now.month,
+        'fromDay': 1,
+        'toYear': selectedDate?.year??now.year,
+        'toMonth': (selectedDate?.month??now.month) + 1,
+        'toDay': 1,
+      });
+
+      if (!response.data.toString().contains("Access-Control-Allow-Origin")&&!response.data.toString().contains("CORS policy")) {
+        print("startttttt");
+        if (response.data.toString() != "error" &&
+            response.data.toString() != "An error occurred") {
+
+
+
+          tradeHistory=response.data['trades'];
+          fullOrders=response.data['fullOrders'];
+
+          tradeHistory.sort((a,b)=>(int.tryParse(b['time'].toString())??0).compareTo(int.tryParse(a['time'].toString())??0));
+          fullOrders.sort((a,b)=>(int.tryParse(b['time'].toString())??0).compareTo(int.tryParse(a['time'].toString())??0));
+          for(var trade in tradeHistory){
+
+            DateTime date =DateTime.fromMillisecondsSinceEpoch(int.parse(trade['time'].toString()));
+            String day=date.toLocal().toString().substring(0,10);
+            print(day);
+            if((double.tryParse(trade['realizedPnl'].toString())??0)>0){
+              wins++;
+            }
+            if((double.tryParse(trade['realizedPnl'].toString())??0)<0){
+              loses++;
+            }
+            if(dayReport[day]==null){
+              dayReport[day]={
+                "profit":double.tryParse(trade['realizedPnl'].toString())??0,
+                "wins":(double.tryParse(trade['realizedPnl'].toString())??0)>0?1:0,
+                "loses":(double.tryParse(trade['realizedPnl'].toString())??0)<0?1:0,
+                "orders":1,
+
+              };
+            }
+            else{
+              dayReport[day]['profit']+=(double.tryParse(trade['realizedPnl'].toString())??0);
+              dayReport[day]['wins']+=(double.tryParse(trade['realizedPnl'].toString())??0)>0?1:0;
+              dayReport[day]['loses']+=(double.tryParse(trade['realizedPnl'].toString())??0)<0?1:0;
+              dayReport[day]['orders']++;
+
+            }
+            if(coinReport[trade["symbol"]]==null){
+              coinReport[trade["symbol"]]={
+                "profit":double.tryParse(trade['realizedPnl'].toString())??0,
+                "wins":(double.tryParse(trade['realizedPnl'].toString())??0)>0?1:0,
+                "loses":(double.tryParse(trade['realizedPnl'].toString())??0)<0?1:0,
+                "orders":1,
+
+              };
+            }
+            else{
+              coinReport[trade["symbol"]]['profit']+=(double.tryParse(trade['realizedPnl'].toString())??0);
+              coinReport[trade["symbol"]]['wins']+=(double.tryParse(trade['realizedPnl'].toString())??0)>0?1:0;
+              coinReport[trade["symbol"]]['loses']+=(double.tryParse(trade['realizedPnl'].toString())??0)<0?1:0;
+              coinReport[trade["symbol"]]['orders']++;
+
+            }
+          }
+          print(coinReport);
+          print(dayReport);
+          pnl=double.tryParse(response.data['pnl'].toString())??0;
+          setState(() {
+
+          });
+        } else {
+          print(response.data.toString());
+        }
+        return true;
+      } else {
+        print(response.data.toString());
+        await Future.delayed(Duration(seconds: 2));
+        return await getUserPnl();
+      }
+    }
+    catch (err) {
+      print(err);
+      await Future.delayed(Duration(seconds: 2));
+      return await getUserPnl();
+    }
+    }
+
   bool _isExpanded = false;
   @override
   Widget build(BuildContext context) {
@@ -81,7 +247,7 @@ class _OpenTradesState extends State<OpenTrades> {
                       child: Text("SYMBOL",style: TextStyle(color:darkMode? Color(0xffE2E2E2):Color(0xff1d1d1d),fontSize: 13,fontWeight: Theme.of(context).textTheme.bodyLarge?.fontWeight),),
                     ),
                     Padding(
-                      padding:  EdgeInsets.only(left: MediaQuery.of(context).size.width*0.03),
+                      padding:  EdgeInsets.only(left: MediaQuery.of(context).size.width*0.08),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -133,7 +299,8 @@ class _OpenTradesState extends State<OpenTrades> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          width: 119,
+                          width: MediaQuery.of(context).size.width*0.32,
+                            color: Colors.blue,
                             child: Text("BLUE BIRD/USDT",style: TextStyle(fontSize: 15,fontWeight: Theme.of(context).textTheme.bodyLarge?.fontWeight),)),
                         SizedBox(height: MediaQuery.of(context).size.height*0.025),
                         Row(
@@ -145,7 +312,8 @@ class _OpenTradesState extends State<OpenTrades> {
                             ),
                             SizedBox(width: MediaQuery.of(context).size.width*0.015,),
                             Container(
-                              width: 90,
+                              color: Colors.blue,
+                              width: MediaQuery.of(context).size.width*0.14,
                                 child: Text("9.11"))
                           ],
                         )
@@ -164,10 +332,28 @@ class _OpenTradesState extends State<OpenTrades> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          width: 50,
-                            child: Text("\$ 9.84",style: TextStyle(fontSize: 15,fontWeight: Theme.of(context).textTheme.bodyLarge?.fontWeight),)),
+                          color: Colors.blue,
+                          width: MediaQuery.of(context).size.width*0.14,
+                            child: Text(
+                              "\$ 9.84",
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: Theme.of(context).textTheme.bodyLarge?.fontWeight
+                              ),
+                            ),
+                        ),
                         SizedBox(height: MediaQuery.of(context).size.height*0.025),
-                        Text("\$(4.98)",style: TextStyle(fontSize: 15,fontWeight: Theme.of(context).textTheme.bodyLarge?.fontWeight),),
+                        Container(
+                            color: Colors.blue,
+                            width: MediaQuery.of(context).size.width*0.14,
+                            child: Text(
+                              "\$(4.98)",
+                              style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: Theme.of(context).textTheme.bodyLarge?.fontWeight
+                              ),
+                            ),
+                        ),
                       ],
                     ),
                   ],
@@ -180,6 +366,7 @@ class _OpenTradesState extends State<OpenTrades> {
                     ),
                     SleekCircularSlider(
                       appearance: CircularSliderAppearance(
+                        animationEnabled: false,
                           size: MediaQuery.of(context).size.width*0.28,
                           customColors: CustomSliderColors(progressBarColor: Theme.of(context).splashColor,trackColor: Color(0xff415669) ),
                           customWidths: CustomSliderWidths(progressBarWidth: 5,trackWidth: 5)),
@@ -189,9 +376,10 @@ class _OpenTradesState extends State<OpenTrades> {
                             SizedBox(height: MediaQuery.of(context).size.height*0.018,),
                             SleekCircularSlider(
                               appearance: CircularSliderAppearance(
+                                animationEnabled: false,
                                   size: MediaQuery.of(context).size.width*0.205,
                                   customColors: CustomSliderColors(progressBarColor: Color(0xff25A27B),trackColor: Color(0xff415669) ),
-                                  customWidths: CustomSliderWidths(progressBarWidth: 0,trackWidth: 10)),
+                                  customWidths: CustomSliderWidths(progressBarWidth: 10,trackWidth: 10)),
                               innerWidget: (percentage) {
                                 return Column(
                                   children: [
@@ -212,7 +400,7 @@ class _OpenTradesState extends State<OpenTrades> {
                               },
                               min: 0,
                               max: 100,
-                              initialValue: 0,
+                              initialValue: 40,
                             )
 
                           ],

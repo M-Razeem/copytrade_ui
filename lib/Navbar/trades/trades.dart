@@ -41,7 +41,7 @@ class _TradesState extends State<Trades> {
                           border: Border(top: BorderSide(color: Colors.grey, width: 0.5))
                       ),
                       child: TabBarView(children: <Widget>[
-                        OpenTrades(),
+                        OpenTrades(traderData: currentUserData,),
                         MyExpandableContainer()
 
 

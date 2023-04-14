@@ -25,12 +25,26 @@ class _NavbarState extends State<Navbar> {
 
   int selectedItemIndex = 0;
   List<Widget> widgetOptions = [
-    MyHomePage(),
-    Trades(),
-    Earn(),
-    Profile(),
   ];
+@override
+  void initState() {
+    get();
+    super.initState();
+  }
+  get() async {
+  while(currentUserData.keys.toList().length<2){
+    await Future.delayed(Duration(seconds: 1));
+  }
+    widgetOptions = [
+      MyHomePage(traderData: currentUserData,),
+      Trades(),
+      Earn(),
+      Profile(),
+    ];
+    setState(() {
 
+    });
+  }
   void _onItemTap(int index) {
     setState(() {
       selectedItemIndex = index;
@@ -60,7 +74,7 @@ class _NavbarState extends State<Navbar> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: widgetOptions.elementAt(selectedItemIndex),
+        child:currentUserData.keys.toList().length<2?CircularProgressIndicator(): widgetOptions.elementAt(selectedItemIndex),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
@@ -77,32 +91,6 @@ class _NavbarState extends State<Navbar> {
         rightCornerRadius: 10,
         gapLocation: GapLocation.center,
         notchSmoothness: NotchSmoothness.smoothEdge,
-        // items: [
-        //     BottomBarItem(
-        //       icon: Icon(Icons.home_filled,),
-        //       title: Text("Home",style: TextStyle(fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize),),
-        //       selectedColor: Theme.of(context).splashColor,
-        //       unSelectedColor: Colors.grey,
-        //     ),
-        //     BottomBarItem(
-        //       icon: Icon(Icons.bar_chart,),
-        //       title: Text("Futures",style: TextStyle(fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize),),
-        //       selectedColor: Theme.of(context).splashColor,
-        //       unSelectedColor: Colors.grey,
-        //     ),
-        //     BottomBarItem(
-        //       icon: Icon(Icons.attach_money_sharp),
-        //       title: Text("Earn",style: TextStyle(fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize),),
-        //       selectedColor: Theme.of(context).splashColor,
-        //       unSelectedColor: Colors.grey,
-        //     ),
-        //     BottomBarItem(
-        //       icon: Icon(Icons.account_circle_sharp,),
-        //       title: Text("Account",style: TextStyle(fontSize: Theme.of(context).textTheme.bodyMedium?.fontSize,),),
-        //       selectedColor: Theme.of(context).splashColor,
-        //       unSelectedColor: Colors.grey,
-        //     ),
-        //   ],
         backgroundColor: darkMode? Theme.of(context).appBarTheme.backgroundColor : Theme.of(context).appBarTheme.backgroundColor,
         elevation: 0,
         onTap: _onItemTap,

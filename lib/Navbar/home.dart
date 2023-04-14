@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:copytrade_ui/Navbar/menu.dart';
 import 'package:copytrade_ui/connect.dart';
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
@@ -13,14 +15,24 @@ import '../traders.dart';
 import '../wallet.dart';
 import 'earn.dart';
 
+List _orders = [];
+List fullOrders = [];
+List<dynamic> positions = [];
+List<dynamic> tradeHistory=[];
+double pnl = 0;
+DateTime? selectedDate;
+
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key,});
+
+  final Map<String, dynamic> traderData;
+  const MyHomePage({super.key, required this.traderData,});
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
   bool up = false;
   int selecteditemindex = 0;
   List live=[
@@ -92,7 +104,168 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   void initState() {
+    _orders = [];
+    fullOrders = [];
+    positions = [];
+    tradeHistory = [];
+
+    selectedDate=DateTime.now();
+    getUserData();
+    getUserPnl();
     super.initState();
+  }
+
+  Map<String,dynamic> coinReport={};
+  Map<String,dynamic> dayReport={};
+  int wins=0;
+  int loses=0;
+  Future<bool> getUserData() async {
+    try {
+      while(wait){
+        await Future.delayed(const Duration(seconds: 1));
+      }
+      var url = settingsMap['path'];
+
+      Dio dio1 = Dio(BaseOptions(
+        baseUrl: url + "/openOrdersAndPositions",
+        validateStatus: (status) => true,
+
+      ));
+      Response response = await dio1.get('', queryParameters: {
+
+        'key': widget.traderData['api_key'],
+        'secret': widget.traderData['api_secret'],
+      });
+
+      if (response.data.toString() != "error" &&
+          response.data.toString() != "An error occurred" &&
+          !response.data.toString().toUpperCase().contains("CORS")) {
+
+
+        positions = response.data['positions'];
+        _orders = response.data['openOrders'];
+
+        setState(() {
+
+        });
+        return true;
+      } else {
+        return await getUserData();
+      }
+    }
+    catch (err) {
+      return await getUserData();
+    }
+  }
+
+  Future<bool> getUserPnl() async {
+
+    try {
+      print("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+
+      while(wait && currentUserData.keys.length<2){
+        await Future.delayed(const Duration(seconds: 1));
+      }
+      print(widget.traderData);
+      var url = settingsMap['path'];
+
+      Dio dio1 = Dio(BaseOptions(
+        baseUrl: url + "/userPnl",
+        validateStatus: (status) => true,
+
+      ));
+      DateTime now =DateTime.now();
+      Response response = await dio1.get('', queryParameters: {
+
+        'key': widget.traderData['api_key'],
+        'secret': widget.traderData['api_secret'],
+        'fromYear': selectedDate?.year??now.year,
+        'fromMonth': selectedDate?.month??now.month,
+        'fromDay': 1,
+        'toYear': selectedDate?.year??now.year,
+        'toMonth': (selectedDate?.month??now.month) + 1,
+        'toDay': 1,
+      });
+
+      if (!response.data.toString().contains("Access-Control-Allow-Origin")&&!response.data.toString().contains("CORS policy")) {
+        print("startttttt");
+        if (response.data.toString() != "error" &&
+            response.data.toString() != "An error occurred") {
+
+
+
+          tradeHistory=response.data['trades'];
+          fullOrders=response.data['fullOrders'];
+
+          tradeHistory.sort((a,b)=>(int.tryParse(b['time'].toString())??0).compareTo(int.tryParse(a['time'].toString())??0));
+          fullOrders.sort((a,b)=>(int.tryParse(b['time'].toString())??0).compareTo(int.tryParse(a['time'].toString())??0));
+          for(var trade in tradeHistory){
+
+            DateTime date =DateTime.fromMillisecondsSinceEpoch(int.parse(trade['time'].toString()));
+            String day=date.toLocal().toString().substring(0,10);
+            print(day);
+            if((double.tryParse(trade['realizedPnl'].toString())??0)>0){
+              wins++;
+            }
+            if((double.tryParse(trade['realizedPnl'].toString())??0)<0){
+              loses++;
+            }
+            if(dayReport[day]==null){
+              dayReport[day]={
+                "profit":double.tryParse(trade['realizedPnl'].toString())??0,
+                "wins":(double.tryParse(trade['realizedPnl'].toString())??0)>0?1:0,
+                "loses":(double.tryParse(trade['realizedPnl'].toString())??0)<0?1:0,
+                "orders":1,
+
+              };
+            }
+            else{
+              dayReport[day]['profit']+=(double.tryParse(trade['realizedPnl'].toString())??0);
+              dayReport[day]['wins']+=(double.tryParse(trade['realizedPnl'].toString())??0)>0?1:0;
+              dayReport[day]['loses']+=(double.tryParse(trade['realizedPnl'].toString())??0)<0?1:0;
+              dayReport[day]['orders']++;
+
+            }
+            if(coinReport[trade["symbol"]]==null){
+              coinReport[trade["symbol"]]={
+                "profit":double.tryParse(trade['realizedPnl'].toString())??0,
+                "wins":(double.tryParse(trade['realizedPnl'].toString())??0)>0?1:0,
+                "loses":(double.tryParse(trade['realizedPnl'].toString())??0)<0?1:0,
+                "orders":1,
+
+              };
+            }
+            else{
+              coinReport[trade["symbol"]]['profit']+=(double.tryParse(trade['realizedPnl'].toString())??0);
+              coinReport[trade["symbol"]]['wins']+=(double.tryParse(trade['realizedPnl'].toString())??0)>0?1:0;
+              coinReport[trade["symbol"]]['loses']+=(double.tryParse(trade['realizedPnl'].toString())??0)<0?1:0;
+              coinReport[trade["symbol"]]['orders']++;
+
+            }
+          }
+          print(coinReport);
+          print(dayReport);
+          print(positions);
+          pnl=double.tryParse(response.data['pnl'].toString())??0;
+          setState(() {
+
+          });
+        } else {
+          print("here");
+          print(response.data.toString());
+        }
+        return true;
+      } else {
+        print(response.data.toString());
+        await Future.delayed(Duration(seconds: 2));
+        return await getUserPnl();
+      }
+    }
+    catch (err) {
+      print(err);
+      await Future.delayed(Duration(seconds: 2));
+      return await getUserPnl();
+    }
   }
 
   @override
@@ -195,7 +368,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 TextButton(
                   onPressed: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Settings()));
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>Settings1()));
                   },
                   child: Container(
                     padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.02),
@@ -601,7 +774,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: ListView.builder(
                             physics: BouncingScrollPhysics(),
                             scrollDirection: Axis.vertical,
-                            itemCount: live.length,
+                            itemCount: positions.length,
                             itemBuilder: (context, index) {
                               return Column(
                                 children: [
@@ -616,7 +789,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                         children: [
                                           Icon(
                                             Icons.trending_up_sharp,
-                                            color: live[index]["Profit/Loss"] < 0  ? Color.fromRGBO(247, 69, 95, 1) : Color.fromRGBO(44, 187, 131, 1),
+                                            color: positions[index]["unRealizedProfit"] < 0 ? Color.fromRGBO(247, 69, 95, 1) : Color.fromRGBO(44, 187, 131, 1),
                                             size: 12,
                                           ),
                                           SizedBox(
@@ -628,7 +801,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                           Row(
                                             children: [
                                               Text(
-                                                live[index]["Coin"],
+                                                positions[index]["symbol"],
                                                 style: TextStyle(
                                                   fontSize: 13,
                                                   fontWeight: FontWeight.w500
@@ -636,7 +809,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                               ),
                                               Padding(
                                                 padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.01),
-                                                child: live[index]["Profit/Loss"] >= 30  ? SvgPicture.asset("assets/fire.svg") : SizedBox(height: 0,width: 0,),
+                                                child: positions[index]["unRealizedProfit"] >= 30  ? SvgPicture.asset("assets/fire.svg") : SizedBox(height: 0,width: 0,),
                                               ),
                                             ],
                                           ),
@@ -645,7 +818,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                       Row(
                                         children: [
                                           Text(
-                                            live[index]["Leverage"],
+                                            positions[index]["leverage"].toString()+"x",
                                             style: TextStyle(
                                               fontSize: 13,
                                               fontWeight: FontWeight.w500,
@@ -662,7 +835,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                             width: 15,
                                             child: Center(
                                               child: Text(
-                                                live[index]["Short/Long"],
+                                                positions[index]["positionAmt"] > 0 ? "L" : "S",
                                                 style: TextStyle(
                                                   fontSize: Theme.of(context)
                                                       .textTheme
@@ -675,7 +848,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                 ),
                                               ),
                                             ),
-                                            color: live[index]["Short/Long"]=="S" ? Color.fromRGBO(247, 69, 95, 1) : Color.fromRGBO(44, 187, 131, 1),
+                                            color: positions[index]["positionAmt"] < 0 ? Color.fromRGBO(247, 69, 95, 1) : Color.fromRGBO(44, 187, 131, 1),
                                           ),
                                           SizedBox(
                                             width: MediaQuery.of(context)
@@ -689,11 +862,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                             decoration: BoxDecoration(
                                               borderRadius: BorderRadius.all(
                                                   Radius.circular(5)),
-                                              color: live[index]["Profit/Loss"] < 0  ? Color.fromRGBO(247, 69, 95, 1) : Color.fromRGBO(44, 187, 131, 1),
+                                              color: positions[index]["unRealizedProfit"] < 0  ? Color.fromRGBO(247, 69, 95, 1) : Color.fromRGBO(44, 187, 131, 1),
                                             ),
                                             child: Center(
                                               child: Text(
-                                                (live[index]["Profit/Loss"].toString()+"%"),
+                                                (positions[index]["unRealizedProfit"].toString()+"%"),
                                                 style: TextStyle(
                                                   fontSize: Theme.of(context)
                                                       .textTheme

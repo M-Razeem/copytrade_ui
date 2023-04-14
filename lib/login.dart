@@ -134,10 +134,13 @@ class _loginState extends State<login> {
                     borderRadius: BorderRadius.all(Radius.circular(10))),
                 onPressed: (){
                   FirebaseAuth.instance.signInWithEmailAndPassword(email: email.text, password: password.text).
-                  then((value){
+                  then((value) async {
                     if(value.user!=null){
                       currentUserId=value.user?.uid??"";
                       getUser();
+                      while(wait){
+                        await Future.delayed(const Duration(seconds: 1));
+                      }
                       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Navbar()));
                     }
                     else{

@@ -122,7 +122,7 @@ class _MenuState extends State<Menu> {
             ),
             TextButton(
               onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>Settings()));
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>Settings1()));
               },
               child: Container(
                 padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.02),

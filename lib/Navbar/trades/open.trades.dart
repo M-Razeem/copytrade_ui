@@ -243,11 +243,11 @@ class _OpenTradesState extends State<OpenTrades> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Padding(
-                      padding:  EdgeInsets.only(left: MediaQuery.of(context).size.width*0.06),
+                      padding:  EdgeInsets.only(left: MediaQuery.of(context).size.width*0.08),
                       child: Text("SYMBOL",style: TextStyle(color:darkMode? Color(0xffE2E2E2):Color(0xff1d1d1d),fontSize: 13,fontWeight: Theme.of(context).textTheme.bodyLarge?.fontWeight),),
                     ),
                     Padding(
-                      padding:  EdgeInsets.only(left: MediaQuery.of(context).size.width*0.08),
+                      padding:  EdgeInsets.only(left: MediaQuery.of(context).size.width*0.16),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -257,7 +257,7 @@ class _OpenTradesState extends State<OpenTrades> {
                       ),
                     ),
                     Padding(
-                      padding:  EdgeInsets.only(right: MediaQuery.of(context).size.width*0.08),
+                      padding:  EdgeInsets.only(right: MediaQuery.of(context).size.width*0.11),
                       child: Text("PROGRESS",style: TextStyle(color:darkMode? Color(0xffE2E2E2):Color(0xff1d1d1d),fontSize: 13,fontWeight: Theme.of(context).textTheme.bodyLarge?.fontWeight)),
                     )
                   ],
@@ -367,7 +367,7 @@ class _OpenTradesState extends State<OpenTrades> {
                       appearance: CircularSliderAppearance(
                         animationEnabled: false,
                           size: MediaQuery.of(context).size.width*0.26,
-                          customColors: CustomSliderColors(progressBarColor: Theme.of(context).splashColor,trackColor: Color(0xff415669) ),
+                          customColors: CustomSliderColors(progressBarColor: Theme.of(context).splashColor,trackColor: Color(0xff415669),dotColor: Colors.transparent),
                           customWidths: CustomSliderWidths(progressBarWidth: 5,trackWidth: 5)),
                       innerWidget: (percentage) {
                         return Column(
@@ -377,7 +377,7 @@ class _OpenTradesState extends State<OpenTrades> {
                               appearance: CircularSliderAppearance(
                                 animationEnabled: false,
                                   size: MediaQuery.of(context).size.width*0.205,
-                                  customColors: CustomSliderColors(progressBarColor: Color(0xff25A27B),trackColor: Color(0xff415669) ),
+                                  customColors: CustomSliderColors(progressBarColor: Color(0xff25A27B),trackColor: Color(0xff415669),dotColor: Colors.transparent ),
                                   customWidths: CustomSliderWidths(progressBarWidth: 10,trackWidth: 10)),
                               innerWidget: (percentage) {
                                 return Column(

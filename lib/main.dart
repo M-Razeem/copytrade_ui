@@ -21,7 +21,7 @@ String a="hello world";
 getUser() async{
   DocumentSnapshot<Map<String,dynamic>> doc= await FirebaseFirestore.instance.collection("users").doc(currentUserId).get();
   currentUserData=doc.data()!;
-  currentUserName=currentUserData?["username"];
+  currentUserName=currentUserData["username"];
 }
 
 void main() async{
@@ -155,6 +155,8 @@ class _MyAppState extends State<MyApp> {
         .listen((event) async {
       if (event.exists) {
         settingsMap = event.data() ?? {};
+        print("11111111111111111hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+        print(settingsMap);
         firebaseVersion=event.data()!['version'];
         wait=false;
 

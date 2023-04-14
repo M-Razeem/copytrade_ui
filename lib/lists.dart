@@ -29,7 +29,7 @@ List editProfile=[
   {
     "Name":"Settings",
     "Icon":Icons.settings_sharp,
-    "Navigation": Settings(),
+    "Navigation": Settings1(),
   }
 ];
 

@@ -16,11 +16,6 @@ class Auth extends StatefulWidget {
 
 class _AuthState extends State<Auth> {
 
-  getUser() async{
-    DocumentSnapshot<Map<String,dynamic>> doc = await FirebaseFirestore.instance.collection("users").doc(currentUserId).get();
-    currentUserData=doc.data()!;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

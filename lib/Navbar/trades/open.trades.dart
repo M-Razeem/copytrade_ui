@@ -264,7 +264,7 @@ class _OpenTradesState extends State<OpenTrades> {
                 ),
               ),
               SizedBox(height: MediaQuery.of(context).size.height*0.015),
-        InkWell(
+              InkWell(
           onTap: () {
             setState(() {
               _isExpanded = !_isExpanded;
@@ -413,14 +413,14 @@ class _OpenTradesState extends State<OpenTrades> {
                 ),
                 Column(
                   children: [
-                    Icon(Icons.share,color: Colors.white,),
+                    Icon(Icons.share,color: Theme.of(context).textTheme.bodyLarge?.color,),
                   ],
                 ),
               ],
             ),
           ),
         ),
-          AnimatedContainer(
+              AnimatedContainer(
             duration: Duration(milliseconds: 300),
             height: _isExpanded ? MediaQuery.of(context).size.height*0.3 : 0.0,
             width:MediaQuery.of(context).size.width*0.95,
@@ -439,9 +439,13 @@ class _OpenTradesState extends State<OpenTrades> {
                       Row(
                         children: [
                           SizedBox(width: MediaQuery.of(context).size.width*0.025,),
-                          Text("AVERAGE ENTRY PRICE",style: TextStyle(fontSize: 11,fontWeight: FontWeight.w500,color:darkMode? Color(0xffE2E2E2):Color(0xff1d1d1d)),),
-                          SizedBox(width: MediaQuery.of(context).size.width*0.28,),
-                          Text("PNL",style: TextStyle(fontSize: 11,fontWeight: FontWeight.w500,color:darkMode? Color(0xffE2E2E2):Color(0xff1d1d1d)),),
+                          Container(
+                            width: MediaQuery.of(context).size.width*0.3,
+                              child: Text("AVERAGE ENTRY PRICE",style: TextStyle(fontSize: 11,fontWeight: FontWeight.w500,color:darkMode? Color(0xffE2E2E2):Color(0xff1d1d1d)),)),
+                          SizedBox(width: MediaQuery.of(context).size.width*0.25,),
+                          Container(
+                            width: MediaQuery.of(context).size.width*0.32,
+                              child: Text("PNL",style: TextStyle(fontSize: 11,fontWeight: FontWeight.w500,color:darkMode? Color(0xffE2E2E2):Color(0xff1d1d1d)),)),
                         ],
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height*0.024,),
@@ -454,45 +458,64 @@ class _OpenTradesState extends State<OpenTrades> {
                             child: SvgPicture.asset("assets/t.svg"),
                           ),
                           SizedBox(width: MediaQuery.of(context).size.width*0.015,),
-                          Text("9.11"),
-                          SizedBox(width: MediaQuery.of(context).size.width*0.445,),
-                          Text("-\$0.02"),
-                          SizedBox(width: MediaQuery.of(context).size.width*0.105,),
-                          Text("-0.43\%",style: TextStyle(color: Colors.red),)
+                          Container(
+                            width: MediaQuery.of(context).size.width*0.237,
+                              child: Text("9.11")),
+                          SizedBox(width: MediaQuery.of(context).size.width*0.24,),
+                          Container(
+                            width: MediaQuery.of(context).size.width*0.16,
+
+                              child: Text("-\$0.02")),
+                          SizedBox(width: MediaQuery.of(context).size.width*0.03,),
+                          Container(
+                            width: MediaQuery.of(context).size.width*0.14,
+                              child: Text("-0.43\%",style: TextStyle(color: Colors.red),))
                         ],
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height*0.055,),
                       Row(
                         children: [
                           SizedBox(width: MediaQuery.of(context).size.width*0.025,),
-                          Text("NEXT ENTRY",style: TextStyle(fontSize: 11,fontWeight: FontWeight.w500,color:darkMode? Color(0xffE2E2E2):Color(0xff1d1d1d)),),
-                          SizedBox(width: MediaQuery.of(context).size.width*0.41,),
-                          Text("NEXT TAKE-PROFIT",style: TextStyle(fontSize: 11,fontWeight: FontWeight.w500,color:darkMode? Color(0xffE2E2E2):Color(0xff1d1d1d)),),
+                          Container(
+                              width: MediaQuery.of(context).size.width*0.3,
+                              child: Text("NEXT ENTRY",style: TextStyle(fontSize: 11,fontWeight: FontWeight.w500,color:darkMode? Color(0xffE2E2E2):Color(0xff1d1d1d)),)),
+                          SizedBox(width: MediaQuery.of(context).size.width*0.25,),
+                          Container(
+                              width: MediaQuery.of(context).size.width*0.32,
+                              child: Text("NEXT TAKE-PROFIT",style: TextStyle(fontSize: 11,fontWeight: FontWeight.w500,color:darkMode? Color(0xffE2E2E2):Color(0xff1d1d1d)),)),
                         ],
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height*0.024,),
                       Row(
                         children: [
+                          SizedBox(width: MediaQuery.of(context).size.width*0.018,),
+                          CircleAvatar(
+                            radius: 10,
+                            backgroundColor: Color(0xff25A27B),
+                            child: SvgPicture.asset("assets/t.svg"),
+                          ),
+                          SizedBox(width: MediaQuery.of(context).size.width*0.015,),
+                          Container(
+                              width: MediaQuery.of(context).size.width*0.1,
+                              child: Text("8.961")),
                           SizedBox(width: MediaQuery.of(context).size.width*0.03,),
+                          Container(
+                            width: MediaQuery.of(context).size.width*0.15,
+                              child: Text("(1.63%)",style: TextStyle(color: Colors.red),)),
+                          SizedBox(width: MediaQuery.of(context).size.width*0.21,),
                           CircleAvatar(
                             radius: 10,
                             backgroundColor: Color(0xff25A27B),
                             child: SvgPicture.asset("assets/t.svg"),
                           ),
                           SizedBox(width: MediaQuery.of(context).size.width*0.015,),
-                          Text("8.961"),
-                          SizedBox(width: MediaQuery.of(context).size.width*0.015,),
-                          Text("(1.63%)",style: TextStyle(color: Colors.red),),
-                          SizedBox(width: MediaQuery.of(context).size.width*0.3,),
-                          CircleAvatar(
-                            radius: 10,
-                            backgroundColor: Color(0xff25A27B),
-                            child: SvgPicture.asset("assets/t.svg"),
-                          ),
-                          SizedBox(width: MediaQuery.of(context).size.width*0.015,),
-                          Text("8.961"),
-                          SizedBox(width: MediaQuery.of(context).size.width*0.06,),
-                          Text("(-1.63\%)",style: TextStyle(color: Colors.green),)
+                          Container(
+                              width: MediaQuery.of(context).size.width*0.11,
+                              child: Text("8.961")),
+                          SizedBox(width: MediaQuery.of(context).size.width*0.03,),
+                          Container(
+                            width: MediaQuery.of(context).size.width*0.15,
+                              child: Text("(-1.63\%)",style: TextStyle(color: Colors.green),))
                         ],
                       ),
                     ],

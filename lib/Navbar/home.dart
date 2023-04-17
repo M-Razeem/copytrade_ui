@@ -6,6 +6,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import '../copy_trade.dart';
 import '../login.dart';
 import '../main.dart';
 import '../privacy.dart';
@@ -699,38 +700,43 @@ class _MyHomePageState extends State<MyHomePage> {
                 SizedBox(
                   width: MediaQuery.of(context).size.width*0.001,
                 ),
-                Container(
-                  height: MediaQuery.of(context).size.height*0.056,
-                  width: MediaQuery.of(context).size.width*0.355,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                      color: darkMode ? Color.fromRGBO(57, 71, 84, 1) : Theme.of(context).shadowColor
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width*0.015,
-                      ),
-                      CircleAvatar(
-                        radius: 15,
-                        backgroundColor: darkMode? Theme.of(context).hintColor : Theme.of(context).appBarTheme.backgroundColor,
-                        child: SvgPicture.asset(
-                            "assets/copy.svg"
+                InkWell(
+                  onTap:(){
+                      Navigator.push(context, MaterialPageRoute(builder: (context)=>CopyTrade()));
+                  },
+                  child: Container(
+                    height: MediaQuery.of(context).size.height*0.056,
+                    width: MediaQuery.of(context).size.width*0.355,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(5)),
+                        color: darkMode ? Color.fromRGBO(57, 71, 84, 1) : Theme.of(context).shadowColor
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width*0.015,
                         ),
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width*0.015,
-                      ),
-                      Text(
-                        "COPY TRADE",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.w700
+                        CircleAvatar(
+                          radius: 15,
+                          backgroundColor: darkMode? Theme.of(context).hintColor : Theme.of(context).appBarTheme.backgroundColor,
+                          child: SvgPicture.asset(
+                              "assets/copy.svg"
+                          ),
                         ),
-                      )
-                    ],
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width*0.015,
+                        ),
+                        Text(
+                          "COPY TRADE",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 11,
+                              fontWeight: FontWeight.w700
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ],

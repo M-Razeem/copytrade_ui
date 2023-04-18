@@ -89,7 +89,9 @@ class _MyExpandableContainerState extends State<MyExpandableContainer> {
                          color: Colors.transparent,
                          child: Text("ONE/USDT",style: TextStyle(fontSize: 15,fontWeight: Theme.of(context).textTheme.bodyLarge?.fontWeight),)),
                      SizedBox(width: MediaQuery.of(context).size.width*0.02,),
-                     Text("\$ 9.84",style: TextStyle(fontSize: 15,fontWeight: Theme.of(context).textTheme.bodyLarge?.fontWeight),),
+                     Container(
+                         width: MediaQuery.of(context).size.width*0.135,
+                         child: Text("\$9.84",style: TextStyle(fontSize: 15,fontWeight: Theme.of(context).textTheme.bodyLarge?.fontWeight),)),
                      SizedBox(width: MediaQuery.of(context).size.width*0.1,),
                      Column(
                        mainAxisAlignment: MainAxisAlignment.end,

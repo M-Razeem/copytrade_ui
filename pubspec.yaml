@@ -35,6 +35,8 @@ dependencies:
   data_table_2: ^2.4.2
   flutter_svg: ^2.0.4
   percent_indicator: ^4.2.3
+  scaffold_gradient_background: ^1.0.3+1
+  expandable: ^5.0.1
   firebase_storage: ^11.0.14
   firebase_core: ^2.7.0
   firebase_auth: ^4.2.9

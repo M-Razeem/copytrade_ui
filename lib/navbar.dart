@@ -1,7 +1,7 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
 import 'package:copytrade_ui/Navbar/earn.dart';
 import 'package:copytrade_ui/Navbar/trades/trades.dart';
-import 'package:copytrade_ui/profile.dart';
+import 'package:copytrade_ui/Navbar/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
@@ -24,8 +24,7 @@ class Navbar extends StatefulWidget {
 class _NavbarState extends State<Navbar> {
 
   int selectedItemIndex = 0;
-  List<Widget> widgetOptions = [
-  ];
+  List<Widget> widgetOptions = [];
 @override
   void initState() {
     get();
@@ -73,6 +72,7 @@ class _NavbarState extends State<Navbar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       body: Center(
         child:currentUserData.keys.toList().length<2?CircularProgressIndicator(): widgetOptions.elementAt(selectedItemIndex),
       ),
@@ -82,8 +82,8 @@ class _NavbarState extends State<Navbar> {
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (context)=>Future1(traderData: currentUserData,)));
         },
-        child: SvgPicture.asset("assets/logo1.svg"),
         backgroundColor: Colors.black,
+        child: SvgPicture.asset("assets/logo1.svg"),
       ),
       bottomNavigationBar: AnimatedBottomNavigationBar.builder(
         itemCount: 4,
@@ -91,8 +91,8 @@ class _NavbarState extends State<Navbar> {
         rightCornerRadius: 10,
         gapLocation: GapLocation.center,
         notchSmoothness: NotchSmoothness.smoothEdge,
-        backgroundColor: darkMode? Theme.of(context).appBarTheme.backgroundColor : Theme.of(context).appBarTheme.backgroundColor,
         elevation: 0,
+        backgroundColor: darkMode? Theme.of(context).appBarTheme.backgroundColor : Theme.of(context).appBarTheme.backgroundColor,
         onTap: _onItemTap,
         activeIndex: selectedItemIndex,
         tabBuilder: (int index, bool isActive) {

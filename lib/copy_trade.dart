@@ -1,5 +1,5 @@
 import 'package:copytrade_ui/privacy.dart';
-import 'package:copytrade_ui/profile.dart';
+import 'package:copytrade_ui/Navbar/profile.dart';
 import 'package:copytrade_ui/profile/settings.dart';
 import 'package:copytrade_ui/traders.dart';
 import 'package:copytrade_ui/wallet.dart';

@@ -1,14 +1,15 @@
+
 import 'package:copytrade_ui/privacy.dart';
-import 'package:copytrade_ui/profile.dart';
-import 'package:copytrade_ui/profile/settings.dart';
+import 'package:copytrade_ui/Navbar/profile.dart';
 import 'package:copytrade_ui/traders.dart';
 import 'package:copytrade_ui/wallet.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../login.dart';
-import '../main.dart';
-import 'earn.dart';
+import 'login.dart';
+import 'main.dart';
+import 'profile/settings.dart';
+import 'Navbar/earn.dart';
 
 class Menu extends StatefulWidget {
   const Menu({Key? key}) : super(key: key);

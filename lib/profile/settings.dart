@@ -1,7 +1,7 @@
 import 'package:copytrade_ui/lists.dart';
 import 'package:flutter/material.dart';
 
-import '../main.dart';
+import '../../main.dart';
 
 class Settings1 extends StatefulWidget {
   const Settings1({Key? key}) : super(key: key);

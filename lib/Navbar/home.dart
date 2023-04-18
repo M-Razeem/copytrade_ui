@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:copytrade_ui/Navbar/menu.dart';
+import 'package:copytrade_ui/menu.dart';
 import 'package:copytrade_ui/connect.dart';
 import 'package:dio/dio.dart';
 import 'package:expandable/expandable.dart';
@@ -10,8 +10,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../login.dart';
 import '../main.dart';
 import '../privacy.dart';
-import '../profile.dart';
 import '../profile/settings.dart';
+import 'profile.dart';
 import '../traders.dart';
 import '../wallet.dart';
 import 'earn.dart';
@@ -64,6 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
     tradeHistory = [];
 
     selectedDate=DateTime.now();
+    print(currentUserId);
     getUserData();
     getUserPnl();
     super.initState();
@@ -707,7 +708,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     child: ExpandablePanel(
                       theme: ExpandableThemeData(
-                        tapBodyToCollapse: false,
+                        tapBodyToCollapse: true,
                         tapBodyToExpand: true,
                         animationDuration: Duration(
                           milliseconds: 200,
@@ -720,7 +721,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                 width: MediaQuery.of(context).size.width*0.9,
                                 height: MediaQuery.of(context).size.height*0.05,
                                 decoration: BoxDecoration(
-                                  color: Color(0xff243C62),
+                                    gradient: LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      colors: [
+                                        Color(0xff22235E),
+                                        Color(0xff1E1848),
+                                      ],
+                                    ),
                                   borderRadius: BorderRadius.all(Radius.circular(3))
                                 ),
                                 child: Row(
@@ -756,7 +764,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                 width: MediaQuery.of(context).size.width*0.9,
                                 height: MediaQuery.of(context).size.height*0.05,
                                 decoration: BoxDecoration(
-                                    color: Color(0xff243C62),
+                                    gradient: LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      colors: [
+                                        Color(0xff22235E),
+                                        Color(0xff1E1848),
+                                      ],
+                                    ),
                                     borderRadius: BorderRadius.all(Radius.circular(3))
                                 ),
                                 child: Row(
@@ -790,6 +805,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     borderRadius: BorderRadius.all(Radius.circular(3))
                                 ),
                                 child: SingleChildScrollView(
+                                  physics: NeverScrollableScrollPhysics(),
                                   child: positions.isEmpty ? Container(
                                     color: Colors.transparent,
                                     height: MediaQuery.of(context).size.height * 0.16,
@@ -973,12 +989,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   ExpandableNotifier(
                     controller: ExpandableController(
-                      initialExpanded: true,
+                      initialExpanded: false,
                     ),
                     child: ExpandablePanel(
                       theme: ExpandableThemeData(
                           tapBodyToExpand: true,
-                          tapBodyToCollapse: false,
+                          tapBodyToCollapse: true,
                           animationDuration: Duration(
                             milliseconds: 200,
                           )
@@ -990,7 +1006,14 @@ class _MyHomePageState extends State<MyHomePage> {
                               width: MediaQuery.of(context).size.width*0.9,
                               height: MediaQuery.of(context).size.height*0.05,
                               decoration: BoxDecoration(
-                                  color: Color(0xff243C62),
+                                  gradient: LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    colors: [
+                                      Color(0xff22235E),
+                                      Color(0xff1E1848),
+                                    ],
+                                  ),
                                   borderRadius: BorderRadius.all(Radius.circular(3))
                               ),
                               child: Row(
@@ -1026,7 +1049,14 @@ class _MyHomePageState extends State<MyHomePage> {
                               width: MediaQuery.of(context).size.width*0.9,
                               height: MediaQuery.of(context).size.height*0.05,
                               decoration: BoxDecoration(
-                                  color: Color(0xff243C62),
+                                  gradient: LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    colors: [
+                                      Color(0xff22235E),
+                                      Color(0xff1E1848),
+                                    ],
+                                  ),
                                   borderRadius: BorderRadius.all(Radius.circular(3))
                               ),
                               child: Row(
@@ -1183,7 +1213,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   ExpandableNotifier(
                     controller: ExpandableController(
-                      initialExpanded: true,
+                      initialExpanded: false,
                     ),
                     child: ExpandablePanel(
                       theme: ExpandableThemeData(
@@ -1200,7 +1230,14 @@ class _MyHomePageState extends State<MyHomePage> {
                               width: MediaQuery.of(context).size.width*0.9,
                               height: MediaQuery.of(context).size.height*0.05,
                               decoration: BoxDecoration(
-                                  color: Color(0xff243C62),
+                                  gradient: LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    colors: [
+                                      Color(0xff22235E),
+                                      Color(0xff1E1848),
+                                    ],
+                                  ),
                                   borderRadius: BorderRadius.all(Radius.circular(3))
                               ),
                               child: Row(
@@ -1236,7 +1273,14 @@ class _MyHomePageState extends State<MyHomePage> {
                               width: MediaQuery.of(context).size.width*0.9,
                               height: MediaQuery.of(context).size.height*0.05,
                               decoration: BoxDecoration(
-                                  color: Color(0xff243C62),
+                                  gradient: LinearGradient(
+                                    begin: Alignment.topCenter,
+                                    end: Alignment.bottomCenter,
+                                    colors: [
+                                      Color(0xff22235E),
+                                      Color(0xff1E1848),
+                                    ],
+                                  ),
                                   borderRadius: BorderRadius.all(Radius.circular(3))
                               ),
                               child: Row(
@@ -1270,13 +1314,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                   borderRadius: BorderRadius.all(Radius.circular(3))
                               ),
                               child: SingleChildScrollView(
+                                physics: NeverScrollableScrollPhysics(),
                                 child: tradeHistory.isEmpty? Container(
                                   color: Colors.transparent,
                                   height: MediaQuery.of(context).size.height * 0.16,
                                   width: MediaQuery.of(context).size.width * 1,
                                   child: Center(
                                     child: Text(
-                                      "NO LIVE TRADES",
+                                      "NO CLOSED TRADES",
                                       style: TextStyle(
                                         fontSize: Theme.of(context).textTheme.bodyLarge?.fontSize,
                                         fontWeight: FontWeight.w500,
@@ -1284,7 +1329,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                       ),
                                     ),
                                   ),
-                                ) : Container(
+                                ) :
+                                Container(
                                   color: Colors.transparent,
                                   height: MediaQuery.of(context).size.height * 0.16,
                                   width: MediaQuery.of(context).size.width * 1,
@@ -1294,6 +1340,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     itemCount: tradeHistory.length,
                                     itemBuilder: (context, index) {
                                       return Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
                                           SizedBox(
                                             height: MediaQuery.of(context).size.height*0.01,
